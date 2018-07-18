@@ -1,0 +1,61 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
+
+    api rootProject.ext.dependencies["appcompat-v7"]
+//    api rootProject.ext.dependencies["design"]
+//    api rootProject.ext.dependencies["recyclerview-v7"]
+//    api rootProject.ext.dependencies["cardview-v7"]
+    api rootProject.ext.dependencies["autolayout"]
+
+    api rootProject.ext.dependencies["retrofit"]
+    api rootProject.ext.dependencies["retrofit-converter-gson"]
+    api rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
+    api rootProject.ext.dependencies["okhttp3"]
+    api rootProject.ext.dependencies["okhttp-logger"]
+    api rootProject.ext.dependencies["okhttp-urlconnection"]
+
+    api rootProject.ext.dependencies["rxjava2"]
+    api rootProject.ext.dependencies["rxandroid2"]
+    api rootProject.ext.dependencies["rxlifecycle2"]
+    api rootProject.ext.dependencies["rxlifecycle2-android"]
+    api rootProject.ext.dependencies["rxlifecycle2-components"]
+
+    api rootProject.ext.dependencies["eventbus"]
+
+    api rootProject.ext.dependencies["butterknife"]
+    compileOnly rootProject.ext.dependencies["butterknife-compiler"]
+//    compileOnly rootProject.ext.dependencies["dagger2-compiler"]
+//    compileOnly rootProject.ext.dependencies["arouter-compiler"]
+//    compileOnly rootProject.ext.dependencies["canary-debug"]
+//    compileOnly rootProject.ext.dependencies["canary-release"]
+
+}
