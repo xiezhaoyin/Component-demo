@@ -1,1 +1,1 @@
-include ':app', ':picture', ':news', ':video', ':baseSDK'
+include ':app', ':picture', ':news', ':video', ':baseSDK', ':baseRES'

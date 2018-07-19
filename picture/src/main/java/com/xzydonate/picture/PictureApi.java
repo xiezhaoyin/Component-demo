@@ -1,6 +1,6 @@
 package com.xzydonate.picture;
 
-import com.xzydonate.base.entity.BaseResp;
+import com.xzydonate.basesdk.entity.BaseResp;
 
 import java.util.List;
 

@@ -10,10 +10,20 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+                includeCompileClasspath true
+            }
+        }
     }
+
     buildTypes {
+
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -21,8 +31,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
-//    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+//    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
@@ -31,7 +40,16 @@ dependencies {
     api rootProject.ext.dependencies["design"]
     api rootProject.ext.dependencies["recyclerview-v7"]
     api rootProject.ext.dependencies["cardview-v7"]
+
     api rootProject.ext.dependencies["butterknife"]
-    compileOnly rootProject.ext.dependencies["butterknife-compiler"]
+    annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
+        exclude module: 'support-annotations'
+    }
+
+//    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+
+    api rootProject.ext.dependencies["arouter"]
+    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
     implementation project(":baseSDK")
+    implementation project(":picture")
 }

@@ -2,7 +2,7 @@ package com.xzydonate.news.newsInfo;
 
 import android.os.Bundle;
 
-import com.xzydonate.base.activity.BaseEventActivity;
+import com.xzydonate.basesdk.activity.BaseEventActivity;
 
 
 public class NewsInfoActivity extends BaseEventActivity {

@@ -11,6 +11,13 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+//                arguments = [moduleName: project.getName()]
+                includeCompileClasspath true
+            }
+        }
+
     }
 
     buildTypes {

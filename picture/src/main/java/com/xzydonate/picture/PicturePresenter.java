@@ -2,10 +2,10 @@ package com.xzydonate.picture;
 
 
 import com.trello.rxlifecycle2.components.support.RxFragment;
-import com.xzydonate.base.entity.BaseResp;
-import com.xzydonate.base.network.netCall.RetrofitHelper;
-import com.xzydonate.base.presenter.BaseFragPresenter;
-import com.xzydonate.base.presenter.base.BaseObserver;
+import com.xzydonate.basesdk.entity.BaseResp;
+import com.xzydonate.basesdk.network.netCall.RetrofitHelper;
+import com.xzydonate.basesdk.presenter.BaseFragPresenter;
+import com.xzydonate.basesdk.presenter.base.BaseObserver;
 import com.xzydonate.picture.page1.PicturePage1Fragment;
 
 import java.util.List;

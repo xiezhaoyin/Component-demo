@@ -11,6 +11,13 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+                includeCompileClasspath true
+            }
+        }
+
     }
 
     buildTypes {
@@ -25,14 +32,14 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
+//    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
 
     api rootProject.ext.dependencies["appcompat-v7"]
 //    api rootProject.ext.dependencies["design"]
-//    api rootProject.ext.dependencies["recyclerview-v7"]
+    api rootProject.ext.dependencies["recyclerview-v7"]
 //    api rootProject.ext.dependencies["cardview-v7"]
     api rootProject.ext.dependencies["autolayout"]
 
@@ -53,8 +60,10 @@ dependencies {
 
     api rootProject.ext.dependencies["butterknife"]
     compileOnly rootProject.ext.dependencies["butterknife-compiler"]
+
 //    compileOnly rootProject.ext.dependencies["dagger2-compiler"]
-//    compileOnly rootProject.ext.dependencies["arouter-compiler"]
+    api rootProject.ext.dependencies["arouter"]
+    compileOnly rootProject.ext.dependencies["arouter-compiler"]
 //    compileOnly rootProject.ext.dependencies["canary-debug"]
 //    compileOnly rootProject.ext.dependencies["canary-release"]
 

@@ -29,18 +29,4 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
-
-    api rootProject.ext.dependencies["appcompat-v7"]
-//    api rootProject.ext.dependencies["design"]
-//    api rootProject.ext.dependencies["recyclerview-v7"]
-//    api rootProject.ext.dependencies["cardview-v7"]
-    api rootProject.ext.dependencies["autolayout"]
-
-    api rootProject.ext.dependencies["eventbus"]
-    api rootProject.ext.dependencies["butterknife"]
-    compileOnly rootProject.ext.dependencies["butterknife-compiler"]
-//    compileOnly rootProject.ext.dependencies["dagger2-compiler"]
-//    compileOnly rootProject.ext.dependencies["arouter-compiler"]
-//    compileOnly rootProject.ext.dependencies["canary-debug"]
-//    compileOnly rootProject.ext.dependencies["canary-release"]
 }

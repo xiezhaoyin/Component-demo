@@ -7,9 +7,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.xzydonate.base.activity.BaseEventFragment;
-import com.xzydonate.base.adapter.FragmentAdapter;
-import com.xzydonate.base.util.UriRouter;
+import com.xzydonate.basesdk.activity.BaseEventFragment;
+import com.xzydonate.basesdk.adapter.FragmentAdapter;
+import com.xzydonate.basesdk.util.UrLRouter;
 import com.xzydonate.picture.page1.PicturePage1Fragment;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-@Route(path = UriRouter.PICTURE_PICTURE_FRAG)
+@Route(path = UrLRouter.PICTURE_PICTURE_FRAG)
 public class PictureFragment extends BaseEventFragment {
 
     @BindView(R2.id.toolbar)
@@ -58,8 +58,6 @@ public class PictureFragment extends BaseEventFragment {
         mToolbar.setTitle("MDProject");
         //导航图标
         mToolbar.setNavigationIcon(android.R.drawable.ic_menu_sort_by_size);
-        //程序logo
-//        mToolbar.setLogo(anddro);
 
     }
 
