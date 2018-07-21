@@ -1,4 +1,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
     <item android:id="@+id/menu_info_details"
         android:title="新闻"
         android:checked="true"
@@ -13,4 +14,5 @@
         android:title="视频"
         android:checked="true"
         android:icon="@android:drawable/ic_menu_camera"/>
+    </group>
 </menu>

@@ -2,6 +2,6 @@
     package="com.xzydonate.picture">
 
     <application>
-
+         <activity android:name=".pictureInfo.PictureInfoActivity"/>
     </application>
 </manifest>

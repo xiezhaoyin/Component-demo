@@ -1,4 +1,4 @@
-package com.xzydonate.picture;
+package com.xzydonate.picture.page1;
 
 
 import com.trello.rxlifecycle2.components.support.RxFragment;
@@ -6,13 +6,14 @@ import com.xzydonate.basesdk.entity.BaseResp;
 import com.xzydonate.basesdk.network.netCall.RetrofitHelper;
 import com.xzydonate.basesdk.presenter.BaseFragPresenter;
 import com.xzydonate.basesdk.presenter.base.BaseObserver;
-import com.xzydonate.picture.page1.PicturePage1Fragment;
+import com.xzydonate.picture.PictureApi;
+import com.xzydonate.picture.PictureResp;
 
 import java.util.List;
 
 import io.reactivex.Observable;
 
-public class PicturePresenter extends BaseFragPresenter {
+public class PicturePage1Presenter extends BaseFragPresenter {
 
     private PicturePage1Fragment fragment = null;
     private PictureApi api = null;
@@ -30,7 +31,7 @@ public class PicturePresenter extends BaseFragPresenter {
     }
 
     public void loadPictures() {
-        Observable<BaseResp<List<PictureResp>>> observable = api.getPictures(10, 1);
+        Observable<BaseResp<List<PictureResp>>> observable = api.getPictures(8, 1);
         setSubscribe(observable, new BaseObserver<List<PictureResp>>(new BaseObserver.OnCallback<List<PictureResp>>() {
             @Override
             public void onCall(List<PictureResp> response) {

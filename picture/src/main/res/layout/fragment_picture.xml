@@ -29,10 +29,10 @@
             android:id="@+id/tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:tabMode="fixed"
             app:tabGravity="center"
             android:background="#c0f9d0"
             app:tabIndicatorColor="@color/colorAccent"
-            app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/colorPrimaryDark"
             app:tabTextColor="@color/colorPrimary"
             />

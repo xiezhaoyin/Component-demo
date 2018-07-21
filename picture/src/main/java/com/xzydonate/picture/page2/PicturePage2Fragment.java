@@ -1,10 +1,10 @@
-package com.xzydonate.picture.page1;
+package com.xzydonate.picture.page2;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,20 +22,19 @@ import com.xzydonate.picture.IPictureView;
 import com.xzydonate.picture.PictureResp;
 import com.xzydonate.picture.R;
 import com.xzydonate.picture.R2;
-import com.xzydonate.picture.pictureInfo.PictureInfoActivity;
 
 import java.util.List;
 
 import butterknife.BindView;
 
-@Route(path = UrLRouter.PICTURE_PAGE1_FRAG)
-public class PicturePage1Fragment extends BaseEventFragment implements IPictureView {
+@Route(path = UrLRouter.PICTURE_PAGE2_FRAG)
+public class PicturePage2Fragment extends BaseEventFragment implements IPictureView {
     @BindView(R2.id.recyclerView)
     RecyclerView mRecyclerView;
     @BindView(R2.id.swipeRFLayout)
     SwipeRefreshLayout mSwipeRFLayout;
 
-    private PicturePage1Presenter presenter = null;
+    private PicturePage2Presenter presenter = null;
     private BaseQuickAdapter adapter = null;
     private int page = 2;
 
@@ -46,10 +45,10 @@ public class PicturePage1Fragment extends BaseEventFragment implements IPictureV
 
     @Override
     public void initView() {
-        presenter = new PicturePage1Presenter();
+        presenter = new PicturePage2Presenter();
         presenter.createPresenter(this);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         mSwipeRFLayout.setProgressBackgroundColorSchemeResource(android.R.color.white);
@@ -100,18 +99,18 @@ public class PicturePage1Fragment extends BaseEventFragment implements IPictureV
                 adapter = new BaseQuickAdapter<PictureResp, BaseViewHolder>(R.layout.page1_recycler_item, data) {
 
                     @Override
-                    protected void convert(BaseViewHolder helper, final PictureResp item) {
+                    protected void convert(BaseViewHolder helper, PictureResp item) {
                         helper.setText(R.id.tv, item.getDesc());
                         ImageView imageView = (ImageView) helper.getView(R.id.iv);
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.MATCH_PARENT,
-                                DensityUtil.dip2px(getContext(),200));
+                                DensityUtil.dip2px(getContext(),30 + (int) (Math.random() * 50)));
                         imageView.setLayoutParams(lp);
                         Glide.with(getContext()).load(item.getUrl()).into(imageView);
                         helper.setOnClickListener(R.id.iv, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                gotoActivity(PictureInfoActivity.class,item);
+                                ARouter.getInstance().build(UrLRouter.PICTURE_PAGE_INFO_ACT).navigation();
                             }
                         });
                     }

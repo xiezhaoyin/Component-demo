@@ -13,7 +13,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [ moduleName : project.getName() ]
+//                arguments = [ moduleName : project.getName() ]
                 includeCompileClasspath true
             }
         }
@@ -62,8 +62,8 @@ dependencies {
     compileOnly rootProject.ext.dependencies["butterknife-compiler"]
 
 //    compileOnly rootProject.ext.dependencies["dagger2-compiler"]
-    api rootProject.ext.dependencies["arouter"]
-    compileOnly rootProject.ext.dependencies["arouter-compiler"]
+//    api rootProject.ext.dependencies["arouter"]
+//    compileOnly rootProject.ext.dependencies["arouter-compiler"]
 //    compileOnly rootProject.ext.dependencies["canary-debug"]
 //    compileOnly rootProject.ext.dependencies["canary-release"]
 

@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 public abstract class BaseEventActivity extends AutoLayoutActivity implements IAttachEvent, IBaseView, OnReceiveListener {
 
     protected String TAG = null;
+    private int layoutResId = -1;
     protected EventDispatch dispatch = null;
     private boolean isCreated = false;
 
@@ -24,7 +25,7 @@ public abstract class BaseEventActivity extends AutoLayoutActivity implements IA
         super.onCreate(savedInstanceState);
         TAG = getClass().getSimpleName();
 
-        int layoutResId = this.createView(savedInstanceState);
+        layoutResId = this.createView(savedInstanceState);
         if (layoutResId != -1) {
             setContentView(layoutResId);
             ButterKnife.bind(this);

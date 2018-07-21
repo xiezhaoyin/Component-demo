@@ -2,18 +2,21 @@ package com.xzydonate.basesdk.util;
 
 public interface UrLRouter {
 
-      String APP = "/app";
-      String NEWS = "/news";
-      String PICTURE = "/picture";
-      String VIDEO = "/video";
+    String APP = "/app";
+    String NEWS = "/news";
+    String PICTURE = "/picture";
+    String VIDEO = "/video";
 
+    String ACT = "Act";
+    String FRAG = "Frag";
 
-      String APP_APP_ACT = APP + "/app_act";
+    String APP_HOME = APP + "/home" + ACT;
 
-      String PICTURE_PICTURE_FRAG = PICTURE + "/picture_frag";
-      String PICTURE_PICTURE_PAGE1_FRAG = PICTURE + "/picture_page1_frag";
-      String PICTURE_PICTURE_PAGE2_FRAG = PICTURE + "/picture_page2_frag";
-      String PICTURE_PICTURE_PAGE3_FRAG = PICTURE + "/picture_page3_frag";
-      String PICTURE_PICTURE_INFO_FRAG = PICTURE + "/picture_info_frag";
+    String PICTURE_FRAG = PICTURE + "/picture" + FRAG;
+    String PICTURE_PAGE1_FRAG = PICTURE + "/picturePage1" + FRAG;
+    String PICTURE_PAGE2_FRAG = PICTURE + "/picturePage2" + FRAG;
+    String PICTURE_PAGE3_FRAG = PICTURE + "/picturePage3" + FRAG;
+    String PICTURE_PAGE_INFO_ACT = PICTURE + "/picturePageInfo" + ACT;
+
 
 }
