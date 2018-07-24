@@ -1,2 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xzydonate.news" />
+    package="com.xzydonate.news">
+
+    <application>
+        <activity android:name=".newsInfo.NewsInfoActivity" />
+
+    </application>
+
+</manifest>

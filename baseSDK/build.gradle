@@ -27,6 +27,7 @@ android {
         }
     }
 
+    resourcePrefix "baseSDK_"
 }
 
 dependencies {

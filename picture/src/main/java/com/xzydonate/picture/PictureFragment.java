@@ -38,7 +38,7 @@ public class PictureFragment extends BaseEventFragment {
     }
 
     @Override
-    public void initView() {
+    public void initView(Bundle savedInstanceState) {
 
         List<String> titles = new ArrayList<>();
         titles.add("ListView");

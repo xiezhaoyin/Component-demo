@@ -17,7 +17,6 @@ import java.util.Iterator;
 public class BaseFragmentManager {
 
     private HashMap<String, Fragment> fragHashMap = null;
-    private Fragment currFrag = null;
     private static BaseFragmentManager instance = null;
 
     private BaseFragmentManager() {
@@ -109,7 +108,7 @@ public class BaseFragmentManager {
     }
 
     private void newFragment(String fragPath) {
-        currFrag = (Fragment) ARouter.getInstance().build(fragPath).navigation();
+        Fragment currFrag = (Fragment) ARouter.getInstance().build(fragPath).navigation();
         fragHashMap.put(fragPath, currFrag);
     }
 

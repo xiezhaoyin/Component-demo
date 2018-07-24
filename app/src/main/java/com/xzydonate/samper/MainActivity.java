@@ -33,6 +33,8 @@ public class MainActivity extends BaseEventActivity {
     //mainView
     private TabLayout tabLayout;
     private FrameLayout container;
+    private FragmentManager fragmentManager = null;
+    private BaseFragmentManager baseFragmentManager = null;
 
     @Override
     public int createView(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class MainActivity extends BaseEventActivity {
     }
 
     @Override
-    public void initView() {
+    public void initView(Bundle savedInstanceState) {
         initMainView();
         initNavigationView();
         setData();
@@ -63,20 +65,18 @@ public class MainActivity extends BaseEventActivity {
 
     private void setData() {
         List<String> titles = new ArrayList<>();
-        titles.add("首页");
-        titles.add("统计");
-        titles.add("我");
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        BaseFragmentManager baseFragmentManager = BaseFragmentManager.getInstance();
-        baseFragmentManager.addFragment(fragmentManager,R.id.container,UrLRouter.PICTURE_FRAG);
-//        baseFragmentManager.addFragment(fragmentManager,R.id.container,UrLRouter.PICTURE_FRAG);
-//        baseFragmentManager.addFragment(fragmentManager,R.id.container,UrLRouter.PICTURE_FRAG);
-        baseFragmentManager.showOneFragment(fragmentManager,R.id.container,UrLRouter.PICTURE_FRAG);
+        titles.add("博文");
+        titles.add("图片");
+        titles.add("短视频");
+        fragmentManager = getSupportFragmentManager();
+        baseFragmentManager = BaseFragmentManager.getInstance();
+        baseFragmentManager.addFragment(fragmentManager,R.id.container,UrLRouter.NEWS_FRAG);
+        baseFragmentManager.showOneFragment(fragmentManager,R.id.container,UrLRouter.NEWS_FRAG);
 
-        View view = LayoutInflater.from(this).inflate(R.layout.tab_custom_view, null);
-        ImageView img = view.findViewById(R.id.tab_img);
-        TextView text = view.findViewById(R.id.tab_tag);
         for (int i = 0; i < 3; i++) {
+            View view = LayoutInflater.from(this).inflate(R.layout.tab_custom_view, null);
+            ImageView img = view.findViewById(R.id.tab_img);
+            TextView text = view.findViewById(R.id.tab_tag);
             TabLayout.Tab tab = tabLayout.newTab();
             switch (i) {
                 case 0:
@@ -94,11 +94,27 @@ public class MainActivity extends BaseEventActivity {
             }
 
             tab.setCustomView(view);
+            tabLayout.addTab(tab);
         }
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                int index = tab.getPosition();
+                switch (index) {
+                    case 0:
+                        baseFragmentManager.addFragment(fragmentManager,R.id.container,UrLRouter.NEWS_FRAG);
+                        baseFragmentManager.showOneFragment(fragmentManager,R.id.container,UrLRouter.NEWS_FRAG);
+                        break;
+                    case 1:
+                        baseFragmentManager.addFragment(fragmentManager,R.id.container,UrLRouter.PICTURE_FRAG);
+                        baseFragmentManager.showOneFragment(fragmentManager,R.id.container,UrLRouter.PICTURE_FRAG);
+                        break;
+                    case 2:
+                        baseFragmentManager.addFragment(fragmentManager,R.id.container,UrLRouter.VIDEO_FRAG);
+                        baseFragmentManager.showOneFragment(fragmentManager,R.id.container,UrLRouter.VIDEO_FRAG);
+                        break;
+                }
 
             }
 
@@ -120,16 +136,15 @@ public class MainActivity extends BaseEventActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-                //点击NavigationView中定义的menu item时触发反应
                 switch (item.getItemId()) {
                     case R.id.menu_info_details:
-//                        viewPager.setCurrentItem(0);
+                        navigationView.setCheckedItem(R.id.menu_info_details);
                         break;
                     case R.id.menu_share:
-//                        viewPager.setCurrentItem(1);
+                        navigationView.setCheckedItem(R.id.menu_share);
                         break;
                     case R.id.menu_agenda:
-//                        viewPager.setCurrentItem(2);
+                        navigationView.setCheckedItem(R.id.menu_agenda);
                         break;
                 }
                 //关闭DrawerLayout回到主界面选中的tab的fragment页

@@ -3,17 +3,18 @@ package com.xzydonate.news.newsInfo;
 import android.os.Bundle;
 
 import com.xzydonate.basesdk.activity.BaseEventActivity;
+import com.xzydonate.news.R;
 
 
 public class NewsInfoActivity extends BaseEventActivity {
 
     @Override
     public int createView(Bundle savedInstanceState) {
-        return 0;
+        return R.layout.activity_news_page_info;
     }
 
     @Override
-    public void initView() {
+    public void initView(Bundle savedInstanceState) {
 
     }
 
@@ -29,6 +30,13 @@ public class NewsInfoActivity extends BaseEventActivity {
 
     @Override
     public void onReceive(boolean isSticky, String eventTag, Object event) {
+        if (isSticky) {
+            switch (eventTag) {
+                case "NewsInfo":
+                    break;
+            }
+        } else {
 
+        }
     }
 }

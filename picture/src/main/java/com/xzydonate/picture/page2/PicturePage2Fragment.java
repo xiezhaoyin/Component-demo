@@ -22,6 +22,7 @@ import com.xzydonate.picture.IPictureView;
 import com.xzydonate.picture.PictureResp;
 import com.xzydonate.picture.R;
 import com.xzydonate.picture.R2;
+import com.xzydonate.picture.pictureInfo.PictureInfoActivity;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class PicturePage2Fragment extends BaseEventFragment implements IPictureV
     }
 
     @Override
-    public void initView() {
+    public void initView(Bundle savedInstanceState) {
         presenter = new PicturePage2Presenter();
         presenter.createPresenter(this);
 
@@ -99,20 +100,22 @@ public class PicturePage2Fragment extends BaseEventFragment implements IPictureV
                 adapter = new BaseQuickAdapter<PictureResp, BaseViewHolder>(R.layout.page1_recycler_item, data) {
 
                     @Override
-                    protected void convert(BaseViewHolder helper, PictureResp item) {
+                    protected void convert(BaseViewHolder helper, final PictureResp item) {
                         helper.setText(R.id.tv, item.getDesc());
                         ImageView imageView = (ImageView) helper.getView(R.id.iv);
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.MATCH_PARENT,
-                                DensityUtil.dip2px(getContext(),30 + (int) (Math.random() * 50)));
+                                DensityUtil.dip2px(getContext(),35 + (int) (Math.random() * 50)));
                         imageView.setLayoutParams(lp);
                         Glide.with(getContext()).load(item.getUrl()).into(imageView);
                         helper.setOnClickListener(R.id.iv, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                ARouter.getInstance().build(UrLRouter.PICTURE_PAGE_INFO_ACT).navigation();
+//                                ARouter.getInstance().build(UrLRouter.PICTURE_PAGE_INFO_ACT).navigation();
+                                gotoActivity(PictureInfoActivity.class,item);
                             }
                         });
+
                     }
                 };
                 adapter.openLoadAnimation();

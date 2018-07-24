@@ -10,7 +10,7 @@ public interface IBaseView {
 
     int createView(Bundle savedInstanceState);
 
-    void initView();
+    void initView(Bundle savedInstanceState);
 
     void resumeView();
 

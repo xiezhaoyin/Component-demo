@@ -22,7 +22,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitHelper {
 
-    private static final String BASE_URL = "http://gank.io/api/";
+    private static String BASE_URL = "http://gank.io/api/";
+    private static final String BASE_WAN_URL = "http://www.wanandroid.com/";
     private static Converter.Factory converter = GsonConverterFactory.create();
     private static CallAdapter.Factory callAdapter = RxJava2CallAdapterFactory.create();
 
@@ -41,7 +42,7 @@ public class RetrofitHelper {
                 //添加HttpLoggingInterceptor拦截器方便调试接口
                 @Override
                 public void log(String message) {
-//                    Log.d("RetrofitHelper", message);
+                    Log.d("RetrofitHelper", message);
                 }
             }).setLevel(HttpLoggingInterceptor.Level.BODY))
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
@@ -49,8 +50,17 @@ public class RetrofitHelper {
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .build();
 
-    public static Retrofit retrofit = new Retrofit.Builder()
+    public static Retrofit RETROFIT = new Retrofit.Builder()
             .baseUrl(BASE_URL)
+            // 添加Gson转换器
+            .addConverterFactory(converter)
+            // 添加Retrofit到RxJava的转换器
+            .addCallAdapterFactory(callAdapter)
+            .client(okHttpClient)
+            .build();
+
+    public static Retrofit RETROFIT_WAN = new Retrofit.Builder()
+            .baseUrl(BASE_WAN_URL)
             // 添加Gson转换器
             .addConverterFactory(converter)
             // 添加Retrofit到RxJava的转换器

@@ -22,7 +22,7 @@ public class PicturePage1Presenter extends BaseFragPresenter {
     public void createPresenter(RxFragment fragment) {
         super.createPresenter(fragment);
         this.fragment = (PicturePage1Fragment) fragment;
-        api = RetrofitHelper.retrofit.create(PictureApi.class);
+        api = RetrofitHelper.RETROFIT.create(PictureApi.class);
     }
 
     @Override
@@ -31,21 +31,27 @@ public class PicturePage1Presenter extends BaseFragPresenter {
     }
 
     public void loadPictures() {
-        Observable<BaseResp<List<PictureResp>>> observable = api.getPictures(8, 1);
+        if (fragment == null || api == null) {
+            return;
+        }
+        Observable<BaseResp<List<PictureResp>>> observable = api.getPictures(2, 1);
         setSubscribe(observable, new BaseObserver<List<PictureResp>>(new BaseObserver.OnCallback<List<PictureResp>>() {
             @Override
             public void onCall(List<PictureResp> response) {
-                 fragment.loadSuccess(response);
+                fragment.loadSuccess(response);
             }
 
             @Override
             public void onError(String errCode, String errMsg) {
-                fragment.loadFail(errCode,errMsg);
+                fragment.loadFail(errCode, errMsg);
             }
         }));
     }
 
     public void loadMorePictures(int number, int page) {
+        if (fragment == null || api == null) {
+            return;
+        }
         Observable<BaseResp<List<PictureResp>>> observable = api.getPictures(number, page);
         setSubscribe(observable, new BaseObserver<List<PictureResp>>(new BaseObserver.OnCallback<List<PictureResp>>() {
             @Override
@@ -55,7 +61,7 @@ public class PicturePage1Presenter extends BaseFragPresenter {
 
             @Override
             public void onError(String errCode, String errMsg) {
-               fragment.loadMoreFail(errCode,errMsg);
+                fragment.loadMoreFail(errCode, errMsg);
             }
         }));
     }

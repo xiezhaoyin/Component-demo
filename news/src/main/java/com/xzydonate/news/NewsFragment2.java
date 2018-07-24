@@ -2,20 +2,16 @@ package com.xzydonate.news;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.xzydonate.baseres.util.DensityUtil;
 import com.xzydonate.basesdk.activity.BaseEventFragment;
 import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseQuickAdapter;
 import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseViewHolder;
@@ -26,11 +22,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
-//@Route(path = UrLRouter.NEWS_FRAG)
-public class NewsFragment extends BaseEventFragment implements INewsView {
+@Route(path = UrLRouter.NEWS_FRAG)
+public class NewsFragment2 extends BaseEventFragment implements INewsView{
 
-    @BindView(R2.id.swipeRFLayout)
-    SwipeRefreshLayout mSwipeRFLayout;
     @BindView(R2.id.recyclerView)
     RecyclerView mRecyclerView;
 
@@ -41,7 +35,7 @@ public class NewsFragment extends BaseEventFragment implements INewsView {
 
     @Override
     public int createView(Bundle savedInstanceState) {
-        return R.layout.fragment_news;
+        return R.layout.fragment_news2;
     }
 
     @Override
@@ -51,29 +45,7 @@ public class NewsFragment extends BaseEventFragment implements INewsView {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
-
-        mSwipeRFLayout.setProgressBackgroundColorSchemeResource(android.R.color.white);
-        mSwipeRFLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-        mSwipeRFLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeRFLayout.setRefreshing(true);
-//                presenter.queryBanner();
-                presenter.queryNews(new NewsReq(cid));
-            }
-        });
-
-        mSwipeRFLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mSwipeRFLayout.setRefreshing(true);
-//                presenter.queryBanner();
-                presenter.queryNews(new NewsReq(cid));
-            }
-        });
+        presenter.queryNews(new NewsReq(cid));
     }
 
     @Override
@@ -93,6 +65,7 @@ public class NewsFragment extends BaseEventFragment implements INewsView {
 
     @Override
     public void queryBannerSuccess(List<BannerResp> data) {
+
     }
 
     @Override
@@ -102,7 +75,6 @@ public class NewsFragment extends BaseEventFragment implements INewsView {
 
     @Override
     public void queryNewsSuccess(NewsResp data) {
-        Log.d("tag",data.toString());
         if (data.getDatas().size() > 0) {
             if (adapter == null) {
                 adapter = new BaseQuickAdapter<NewsResp.NewsInfo, BaseViewHolder>(R.layout.news_recycler_item, data.getDatas()) {
@@ -142,12 +114,11 @@ public class NewsFragment extends BaseEventFragment implements INewsView {
         } else {
 
         }
-        mSwipeRFLayout.setRefreshing(false);
     }
 
     @Override
     public void queryNewsFail(String errCode, String errMsg) {
-        mSwipeRFLayout.setRefreshing(false);
+
     }
 
     @Override

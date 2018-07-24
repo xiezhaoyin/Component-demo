@@ -30,6 +30,8 @@ public abstract class BaseEventActivity extends AutoLayoutActivity implements IA
             setContentView(layoutResId);
             ButterKnife.bind(this);
             isCreated = true;
+        }else {
+            throw new NullPointerException("createView don't be null");
         }
 
         if (dispatch == null) {
@@ -37,7 +39,7 @@ public abstract class BaseEventActivity extends AutoLayoutActivity implements IA
             dispatch.register(this);
         }
 
-        this.initView();
+        this.initView(savedInstanceState);
     }
 
     @Override

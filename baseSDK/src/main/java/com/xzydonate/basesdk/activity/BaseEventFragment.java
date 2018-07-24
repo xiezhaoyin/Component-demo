@@ -41,10 +41,11 @@ public abstract class BaseEventFragment extends RxFragment implements IAttachEve
                 dispatch = attachEvent(new EventDispatch(), this);
                 dispatch.register(this);
             }
-            this.initView();
+            this.initView(savedInstanceState);
             return view;
+        }else {
+            throw new NullPointerException("createView don't be null");
         }
-        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override

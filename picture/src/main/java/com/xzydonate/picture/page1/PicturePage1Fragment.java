@@ -45,7 +45,7 @@ public class PicturePage1Fragment extends BaseEventFragment implements IPictureV
     }
 
     @Override
-    public void initView() {
+    public void initView(Bundle savedInstanceState) {
         presenter = new PicturePage1Presenter();
         presenter.createPresenter(this);
 
@@ -105,7 +105,7 @@ public class PicturePage1Fragment extends BaseEventFragment implements IPictureV
                         ImageView imageView = (ImageView) helper.getView(R.id.iv);
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.MATCH_PARENT,
-                                DensityUtil.dip2px(getContext(),200));
+                                DensityUtil.dip2px(getContext(),235));
                         imageView.setLayoutParams(lp);
                         Glide.with(getContext()).load(item.getUrl()).into(imageView);
                         helper.setOnClickListener(R.id.iv, new View.OnClickListener() {

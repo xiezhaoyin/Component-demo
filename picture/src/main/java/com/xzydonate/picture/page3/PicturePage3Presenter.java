@@ -22,7 +22,7 @@ public class PicturePage3Presenter extends BaseFragPresenter {
     public void createPresenter(RxFragment fragment) {
         super.createPresenter(fragment);
         this.fragment = (PicturePage3Fragment) fragment;
-        api = RetrofitHelper.retrofit.create(PictureApi.class);
+        api = RetrofitHelper.RETROFIT.create(PictureApi.class);
     }
 
     @Override

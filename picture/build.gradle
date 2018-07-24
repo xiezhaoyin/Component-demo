@@ -28,6 +28,8 @@ android {
         }
     }
 
+    resourcePrefix "picture_"
+
 }
 
 dependencies {

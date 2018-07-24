@@ -20,6 +20,7 @@ import com.xzydonate.picture.IPictureView;
 import com.xzydonate.picture.PictureResp;
 import com.xzydonate.picture.R;
 import com.xzydonate.picture.R2;
+import com.xzydonate.picture.pictureInfo.PictureInfoActivity;
 
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class PicturePage3Fragment extends BaseEventFragment implements IPictureV
     }
 
     @Override
-    public void initView() {
+    public void initView(Bundle savedInstanceState) {
         presenter = new PicturePage3Presenter();
         presenter.createPresenter(this);
 
@@ -97,13 +98,14 @@ public class PicturePage3Fragment extends BaseEventFragment implements IPictureV
                 adapter = new BaseQuickAdapter<PictureResp, BaseViewHolder>(R.layout.page1_recycler_item, data) {
 
                     @Override
-                    protected void convert(BaseViewHolder helper, PictureResp item) {
+                    protected void convert(BaseViewHolder helper, final PictureResp item) {
                         helper.setText(R.id.tv, item.getDesc());
                         Glide.with(getContext()).load(item.getUrl()).into((ImageView) helper.getView(R.id.iv));
                         helper.setOnClickListener(R.id.iv, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                ARouter.getInstance().build(UrLRouter.PICTURE_PAGE_INFO_ACT).navigation();
+//                                ARouter.getInstance().build(UrLRouter.PICTURE_PAGE_INFO_ACT).navigation();
+                                gotoActivity(PictureInfoActivity.class,item);
                             }
                         });
                     }
