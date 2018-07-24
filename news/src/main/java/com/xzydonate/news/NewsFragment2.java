@@ -17,6 +17,7 @@ import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseQuickAdapter;
 import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseViewHolder;
 import com.xzydonate.basesdk.util.UrLRouter;
 import com.xzydonate.news.newsInfo.NewsInfoActivity;
+import com.youth.banner.Banner;
 
 import java.util.List;
 
@@ -25,6 +26,8 @@ import butterknife.BindView;
 @Route(path = UrLRouter.NEWS_FRAG)
 public class NewsFragment2 extends BaseEventFragment implements INewsView{
 
+    @BindView(R2.id.banner)
+    Banner mBanner;
     @BindView(R2.id.recyclerView)
     RecyclerView mRecyclerView;
 
@@ -45,6 +48,8 @@ public class NewsFragment2 extends BaseEventFragment implements INewsView{
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+
+//        mBanner.
         presenter.queryNews(new NewsReq(cid));
     }
 

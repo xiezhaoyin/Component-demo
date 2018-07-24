@@ -12,11 +12,11 @@
         android:background="@color/white"
         app:elevation="0dp">
 
-        <View
+        <com.youth.banner.Banner
             android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:layout_scrollFlags="scroll" />
+            android:layout_height="300dp"
+            app:layout_scrollFlags="scroll"/>
 
         <HorizontalScrollView
             android:layout_width="match_parent"

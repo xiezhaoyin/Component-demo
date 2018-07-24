@@ -9,17 +9,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
-import com.xzydonate.baseres.util.DensityUtil;
 import com.xzydonate.basesdk.activity.BaseEventFragment;
 import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseQuickAdapter;
 import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseViewHolder;
-import com.xzydonate.basesdk.util.UrLRouter;
 import com.xzydonate.news.newsInfo.NewsInfoActivity;
 
 import java.util.List;

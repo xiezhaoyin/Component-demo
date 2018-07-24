@@ -53,6 +53,7 @@ ext {
 
             //view
             "autolayout"               : "com.zhy:autolayout:1.4.5",
+            "banner"                   : "com.youth.banner:banner:1.4.10",
             "butterknife"              : "com.jakewharton:butterknife:${version["butterknifeSdkVersion"]}",
             "butterknife-compiler"     : "com.jakewharton:butterknife-compiler:${version["butterknifeSdkVersion"]}",
 
