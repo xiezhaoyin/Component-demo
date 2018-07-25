@@ -51,6 +51,10 @@ dependencies {
     api rootProject.ext.dependencies["okhttp-logger"]
     api rootProject.ext.dependencies["okhttp-urlconnection"]
 
+    api rootProject.ext.dependencies["glide"]
+    api rootProject.ext.dependencies["glide-compiler"]
+    api rootProject.ext.dependencies["glide-loader-okhttp3"]
+
     api rootProject.ext.dependencies["rxjava2"]
     api rootProject.ext.dependencies["rxandroid2"]
     api rootProject.ext.dependencies["rxlifecycle2"]

@@ -15,14 +15,13 @@
         <com.youth.banner.Banner
             android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
             app:layout_scrollFlags="scroll"/>
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_margin="15dp"
             android:scrollbars="none"
             app:layout_scrollFlags="scroll">
 
@@ -79,21 +78,12 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="5dp"
+            android:layout_margin="10dp"
             android:background="@color/edit_hint_gray"
             android:gravity="center"
-            android:hint="搜索简书的内容和朋友" />
+            android:hint="搜索简书的内容和朋友"
+            android:textSize="14sp"/>
 
-        <View
-            android:id="@+id/line_divider"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginBottom="10dp"
-            android:background="@color/darkLine"
-            android:visibility="gone" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView

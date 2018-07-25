@@ -5,7 +5,7 @@ public class BannerResp {
     private int id;
     private String desc;
     private String imagePath;
-    private boolean isVisible;
+    private int isVisible;
     private int order;
     private String title;
     private int type;
@@ -35,11 +35,11 @@ public class BannerResp {
         this.imagePath = imagePath;
     }
 
-    public boolean isVisible() {
+    public int isVisible() {
         return isVisible;
     }
 
-    public void setVisible(boolean visible) {
+    public void setVisible(int visible) {
         isVisible = visible;
     }
 

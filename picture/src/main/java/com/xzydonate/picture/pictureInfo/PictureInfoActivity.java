@@ -23,7 +23,7 @@ public class PictureInfoActivity extends BaseEventActivity {
     AppBarLayout mAppBarLayout;
     @BindView(R2.id.image)
     ImageView mImage;
-    @BindView(R2.id.toolbar)
+    @BindView(R2.id.tool)
     Toolbar mToolbar;
     @BindView(R2.id.fab)
     FloatingActionButton mFab;

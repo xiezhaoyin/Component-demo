@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -18,13 +19,15 @@ import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseViewHolder;
 import com.xzydonate.basesdk.util.UrLRouter;
 import com.xzydonate.news.newsInfo.NewsInfoActivity;
 import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
 @Route(path = UrLRouter.NEWS_FRAG)
-public class NewsFragment2 extends BaseEventFragment implements INewsView{
+public class NewsFragment2 extends BaseEventFragment implements INewsView {
 
     @BindView(R2.id.banner)
     Banner mBanner;
@@ -34,6 +37,7 @@ public class NewsFragment2 extends BaseEventFragment implements INewsView{
     private NewsPresenter presenter = null;
     private int cid = 60;
     private int page = 2;
+    private List<String> imgPaths = null;
     private BaseQuickAdapter<NewsResp.NewsInfo, BaseViewHolder> adapter = null;
 
     @Override
@@ -47,20 +51,23 @@ public class NewsFragment2 extends BaseEventFragment implements INewsView{
         presenter.createPresenter(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
-
-//        mBanner.
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        mBanner.setImageLoader(new GlideImageLoader());
+        mBanner.isAutoPlay(true);
+        mBanner.setDelayTime(3000);
+        presenter.queryBanner();
         presenter.queryNews(new NewsReq(cid));
     }
 
     @Override
     public void resumeView() {
-
+       mBanner.startAutoPlay();
     }
 
     @Override
     public void destroyView() {
-
+        mBanner.stopAutoPlay();
     }
 
     @Override
@@ -70,12 +77,23 @@ public class NewsFragment2 extends BaseEventFragment implements INewsView{
 
     @Override
     public void queryBannerSuccess(List<BannerResp> data) {
+        Log.d(TAG,"queryBannerSuccess");
+        if (data.size() > 0) {
+            imgPaths = new ArrayList<>();
+            for (BannerResp banner : data) {
+                imgPaths.add(banner.getImagePath());
+                Log.d(TAG,banner.getImagePath());
+            }
+            mBanner.setImages(imgPaths);
+            mBanner.start();
+        } else {
 
+        }
     }
 
     @Override
     public void queryBannerFail(String errCode, String errMsg) {
-
+        Log.d(TAG,"queryBannerFail");
     }
 
     @Override
@@ -99,7 +117,7 @@ public class NewsFragment2 extends BaseEventFragment implements INewsView{
                         helper.setOnClickListener(R.id.item, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                gotoActivity(NewsInfoActivity.class,item);
+                                gotoActivity(NewsInfoActivity.class, item);
                             }
                         });
                     }

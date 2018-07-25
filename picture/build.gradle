@@ -45,10 +45,6 @@ dependencies {
     api rootProject.ext.dependencies["recyclerview-v7"]
     api rootProject.ext.dependencies["cardview-v7"]
 
-    api rootProject.ext.dependencies["glide"]
-    api rootProject.ext.dependencies["glide-compiler"]
-    api rootProject.ext.dependencies["glide-loader-okhttp3"]
-
     api rootProject.ext.dependencies["butterknife"]
     compileOnly rootProject.ext.dependencies["butterknife-compiler"]
 
