@@ -4,6 +4,8 @@ import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -17,6 +19,11 @@ import io.reactivex.schedulers.Schedulers;
 public class BaseFragPresenter {
 
     private RxFragment fragment;
+
+    @Inject
+    public BaseFragPresenter(){
+
+    }
 
     public <T> void setDelayConsumerSubscribe(Observable<T> observable, Consumer<T> consumer, Observer<T> observer, int timeout) {
         if (fragment == null) {

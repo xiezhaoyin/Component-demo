@@ -4,9 +4,9 @@ import android.os.Bundle;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.xzydonate.basesdk.activity.BaseEventFragment;
-import com.xzydonate.basesdk.util.UrLRouter;
+import com.xzydonate.basesdk.util.UrlRouter;
 
-@Route(path = UrLRouter.VIDEO_FRAG)
+@Route(path = UrlRouter.VIDEO_FRAG)
 public class VideoFragment extends BaseEventFragment {
     @Override
     public int createView(Bundle savedInstanceState) {

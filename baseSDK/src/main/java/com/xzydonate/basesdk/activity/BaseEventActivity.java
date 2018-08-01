@@ -6,19 +6,28 @@ import android.support.annotation.Nullable;
 
 
 import com.xzydonate.basesdk.R;
+import com.xzydonate.basesdk.presenter.BaseActPresenter;
 
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import dagger.android.AndroidInjection;
 
 /**
  * Created by dell on 2018/4/24.
  */
-public abstract class BaseEventActivity extends AutoLayoutActivity implements IAttachEvent, IBaseView, OnReceiveListener {
+public abstract class BaseEventActivity<T extends BaseActPresenter> extends AutoLayoutActivity implements IAttachEvent, IBaseView, OnReceiveListener {
 
     protected String TAG = null;
     private int layoutResId = -1;
     protected EventDispatch dispatch = null;
+    private Unbinder unbinder = null;
     private boolean isCreated = false;
+
+    @Inject
+    protected T presenter ;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,28 +37,35 @@ public abstract class BaseEventActivity extends AutoLayoutActivity implements IA
         layoutResId = this.createView(savedInstanceState);
         if (layoutResId != -1) {
             setContentView(layoutResId);
-            ButterKnife.bind(this);
+            unbinder = ButterKnife.bind(this);
             isCreated = true;
-        }else {
+        } else {
             throw new NullPointerException("createView don't be null");
         }
 
         if (dispatch == null) {
             dispatch = attachEvent(new EventDispatch(), this);
-            dispatch.register(this);
         }
 
+        AndroidInjection.inject(this);
+        if(presenter !=null) {
+            presenter.createPresenter(this);
+        }
         this.initView(savedInstanceState);
     }
 
     @Override
     public EventDispatch attachEvent(EventDispatch dispatch, OnReceiveListener listener) {
+        dispatch.register(listener);
         return dispatch;
     }
 
     @Override
     public void detachEvent() {
-        dispatch = null;
+        if (dispatch != null) {
+            dispatch.unregister();
+            dispatch = null;
+        }
     }
 
     @Override
@@ -63,11 +79,12 @@ public abstract class BaseEventActivity extends AutoLayoutActivity implements IA
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        this.destroyView();
-        if (dispatch != null) {
-            dispatch.unregister();
-            detachEvent();
+        if(presenter !=null) {
+            presenter.destroyPresenter();
         }
+        this.destroyView();
+        unbinder.unbind();
+        detachEvent();
     }
 
     protected void gotoActivity(Class cl, @Nullable Object object) {

@@ -10,18 +10,25 @@ import com.xzydonate.basesdk.util.Obj2MapUtil;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 
 
 public class NewsPresenter extends BaseFragPresenter {
 
-    private NewsFragment2 fragment = null;
+    private NewsFragment fragment = null;
     private NewsApi api = null;
+
+    @Inject
+    public NewsPresenter(){
+
+    }
 
     @Override
     public void createPresenter(RxFragment fragment) {
         super.createPresenter(fragment);
-        this.fragment = (NewsFragment2) fragment;
+        this.fragment = (NewsFragment) fragment;
         api = RetrofitHelper.RETROFIT_WAN.create(NewsApi.class);
 
     }

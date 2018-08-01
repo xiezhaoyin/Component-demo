@@ -11,13 +11,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.xzydonate.baseres.util.DensityUtil;
 import com.xzydonate.basesdk.activity.BaseEventFragment;
 import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseQuickAdapter;
 import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseViewHolder;
-import com.xzydonate.basesdk.util.UrLRouter;
+import com.xzydonate.basesdk.util.UrlRouter;
 import com.xzydonate.picture.IPictureView;
 import com.xzydonate.picture.PictureResp;
 import com.xzydonate.picture.R;
@@ -28,7 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-@Route(path = UrLRouter.PICTURE_PAGE1_FRAG)
+@Route(path = UrlRouter.PICTURE_PAGE1_FRAG)
 public class PicturePage1Fragment extends BaseEventFragment implements IPictureView {
     @BindView(R2.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -94,6 +93,7 @@ public class PicturePage1Fragment extends BaseEventFragment implements IPictureV
     @Override
     public void loadSuccess(List<PictureResp> data) {
         Log.d("xzy", "loadSuccess ");
+        page = 2;
         mSwipeRFLayout.setRefreshing(false);
         if (data.size() > 0) {
             if(adapter == null) {

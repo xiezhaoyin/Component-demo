@@ -13,26 +13,35 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.xzydonate.basesdk.activity.BaseEventFragment;
 import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseQuickAdapter;
 import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseViewHolder;
+import com.xzydonate.basesdk.util.UrlRouter;
 import com.xzydonate.news.newsInfo.NewsInfoActivity;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
-//@Route(path = UrLRouter.NEWS_FRAG)
-public class NewsFragment extends BaseEventFragment implements INewsView {
+@Route(path = UrlRouter.NEWS_FRAG)
+public class NewsFragment extends BaseEventFragment<NewsPresenter> implements INewsView {
 
     @BindView(R2.id.swipeRFLayout)
     SwipeRefreshLayout mSwipeRFLayout;
+    @BindView(R2.id.banner)
+    Banner mBanner;
     @BindView(R2.id.recyclerView)
     RecyclerView mRecyclerView;
 
-    private NewsPresenter presenter = null;
+//    private NewsPresenter presenter = null;
     private int cid = 60;
     private int page = 2;
+    private List<String> imgPaths = null;
+
     private BaseQuickAdapter<NewsResp.NewsInfo, BaseViewHolder> adapter = null;
 
     @Override
@@ -42,11 +51,16 @@ public class NewsFragment extends BaseEventFragment implements INewsView {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        presenter = new NewsPresenter();
-        presenter.createPresenter(this);
+//        presenter = new NewsPresenter();
+//        presenter.createPresenter(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+
+        mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        mBanner.setImageLoader(new GlideImageLoader());
+        mBanner.isAutoPlay(true);
+        mBanner.setDelayTime(3000);
 
         mSwipeRFLayout.setProgressBackgroundColorSchemeResource(android.R.color.white);
         mSwipeRFLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -57,7 +71,7 @@ public class NewsFragment extends BaseEventFragment implements INewsView {
             @Override
             public void run() {
                 mSwipeRFLayout.setRefreshing(true);
-//                presenter.queryBanner();
+                presenter.queryBanner();
                 presenter.queryNews(new NewsReq(cid));
             }
         });
@@ -66,20 +80,26 @@ public class NewsFragment extends BaseEventFragment implements INewsView {
             @Override
             public void onRefresh() {
                 mSwipeRFLayout.setRefreshing(true);
-//                presenter.queryBanner();
+                presenter.queryBanner();
                 presenter.queryNews(new NewsReq(cid));
             }
         });
+
     }
 
     @Override
     public void resumeView() {
-
+        mSwipeRFLayout.setRefreshing(true);
+        presenter.queryBanner();
+        presenter.queryNews(new NewsReq(cid));
+        mBanner.startAutoPlay();
     }
+
 
     @Override
     public void destroyView() {
-
+        mBanner.stopAutoPlay();
+//        presenter.destroyPresenter();
     }
 
     @Override
@@ -89,16 +109,30 @@ public class NewsFragment extends BaseEventFragment implements INewsView {
 
     @Override
     public void queryBannerSuccess(List<BannerResp> data) {
+        Log.d(TAG, "queryBannerSuccess");
+        if (data.size() > 0) {
+            imgPaths = new ArrayList<>();
+            for (BannerResp banner : data) {
+                imgPaths.add(banner.getImagePath());
+                Log.d(TAG, banner.getImagePath());
+            }
+            mBanner.setImages(imgPaths);
+            mBanner.start();
+        } else {
+
+        }
     }
 
     @Override
     public void queryBannerFail(String errCode, String errMsg) {
-
+        Log.d(TAG, "queryBannerFail");
+        mSwipeRFLayout.setRefreshing(false);
     }
 
     @Override
     public void queryNewsSuccess(NewsResp data) {
-        Log.d("tag",data.toString());
+        page = 2;
+        mSwipeRFLayout.setRefreshing(false);
         if (data.getDatas().size() > 0) {
             if (adapter == null) {
                 adapter = new BaseQuickAdapter<NewsResp.NewsInfo, BaseViewHolder>(R.layout.news_recycler_item, data.getDatas()) {
@@ -118,7 +152,7 @@ public class NewsFragment extends BaseEventFragment implements INewsView {
                         helper.setOnClickListener(R.id.item, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                gotoActivity(NewsInfoActivity.class,item);
+                                gotoActivity(NewsInfoActivity.class, item);
                             }
                         });
                     }
@@ -138,12 +172,11 @@ public class NewsFragment extends BaseEventFragment implements INewsView {
         } else {
 
         }
-        mSwipeRFLayout.setRefreshing(false);
     }
 
     @Override
     public void queryNewsFail(String errCode, String errMsg) {
-        mSwipeRFLayout.setRefreshing(false);
+
     }
 
     @Override

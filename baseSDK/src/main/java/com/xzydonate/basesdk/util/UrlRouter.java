@@ -1,6 +1,6 @@
 package com.xzydonate.basesdk.util;
 
-public interface UrLRouter {
+public interface UrlRouter {
 
     String APP = "/app";
     String NEWS = "/news";

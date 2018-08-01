@@ -10,7 +10,7 @@ import android.support.v7.widget.Toolbar;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.xzydonate.basesdk.activity.BaseEventFragment;
 import com.xzydonate.basesdk.adapter.FragmentAdapter;
-import com.xzydonate.basesdk.util.UrLRouter;
+import com.xzydonate.basesdk.util.UrlRouter;
 import com.xzydonate.picture.page1.PicturePage1Fragment;
 import com.xzydonate.picture.page2.PicturePage2Fragment;
 import com.xzydonate.picture.page3.PicturePage3Fragment;
@@ -20,7 +20,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-@Route(path = UrLRouter.PICTURE_FRAG)
+@Route(path = UrlRouter.PICTURE_FRAG)
 public class PictureFragment extends BaseEventFragment {
 
     @BindView(R2.id.toolbar)

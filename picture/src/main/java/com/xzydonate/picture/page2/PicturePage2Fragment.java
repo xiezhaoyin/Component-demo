@@ -11,13 +11,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.xzydonate.baseres.util.DensityUtil;
 import com.xzydonate.basesdk.activity.BaseEventFragment;
 import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseQuickAdapter;
 import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseViewHolder;
-import com.xzydonate.basesdk.util.UrLRouter;
+import com.xzydonate.basesdk.util.UrlRouter;
 import com.xzydonate.picture.IPictureView;
 import com.xzydonate.picture.PictureResp;
 import com.xzydonate.picture.R;
@@ -28,7 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-@Route(path = UrLRouter.PICTURE_PAGE2_FRAG)
+@Route(path = UrlRouter.PICTURE_PAGE2_FRAG)
 public class PicturePage2Fragment extends BaseEventFragment implements IPictureView {
     @BindView(R2.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -49,7 +48,7 @@ public class PicturePage2Fragment extends BaseEventFragment implements IPictureV
         presenter = new PicturePage2Presenter();
         presenter.createPresenter(this);
 
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         mSwipeRFLayout.setProgressBackgroundColorSchemeResource(android.R.color.white);
@@ -83,7 +82,7 @@ public class PicturePage2Fragment extends BaseEventFragment implements IPictureV
 
     @Override
     public void destroyView() {
-
+        presenter.destroyPresenter();
     }
 
     @Override
@@ -96,7 +95,7 @@ public class PicturePage2Fragment extends BaseEventFragment implements IPictureV
         Log.d("xzy", "loadSuccess ");
         mSwipeRFLayout.setRefreshing(false);
         if (data.size() > 0) {
-            if(adapter == null) {
+            if (adapter == null) {
                 adapter = new BaseQuickAdapter<PictureResp, BaseViewHolder>(R.layout.page1_recycler_item, data) {
 
                     @Override
@@ -105,14 +104,14 @@ public class PicturePage2Fragment extends BaseEventFragment implements IPictureV
                         ImageView imageView = (ImageView) helper.getView(R.id.iv);
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.MATCH_PARENT,
-                                DensityUtil.dip2px(getContext(),35 + (int) (Math.random() * 50)));
+                                DensityUtil.dip2px(getContext(), 135 + (int) (Math.random() * 50)));
                         imageView.setLayoutParams(lp);
                         Glide.with(getContext()).load(item.getUrl()).into(imageView);
                         helper.setOnClickListener(R.id.iv, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-//                                ARouter.getInstance().build(UrLRouter.PICTURE_PAGE_INFO_ACT).navigation();
-                                gotoActivity(PictureInfoActivity.class,item);
+//                                ARouter.getInstance().build(UrlRouter.PICTURE_PAGE_INFO_ACT).navigation();
+                                gotoActivity(PictureInfoActivity.class, item);
                             }
                         });
 
@@ -126,10 +125,10 @@ public class PicturePage2Fragment extends BaseEventFragment implements IPictureV
                     }
                 });
                 mRecyclerView.setAdapter(adapter);
-            }else {
+            } else {
                 adapter.setNewData(data);
             }
-        }else {
+        } else {
 
         }
     }
@@ -142,11 +141,11 @@ public class PicturePage2Fragment extends BaseEventFragment implements IPictureV
 
     @Override
     public void loadMoreSuccess(List<PictureResp> data) {
-        if(data.size()>0){
+        if (data.size() > 0) {
             page++;
             adapter.addData(data);
             adapter.loadMoreComplete();
-        }else {
+        } else {
             adapter.loadMoreEnd();
         }
 
@@ -154,6 +153,6 @@ public class PicturePage2Fragment extends BaseEventFragment implements IPictureV
 
     @Override
     public void loadMoreFail(String errCode, String errMsg) {
-          adapter.loadMoreFail();
+        adapter.loadMoreFail();
     }
 }

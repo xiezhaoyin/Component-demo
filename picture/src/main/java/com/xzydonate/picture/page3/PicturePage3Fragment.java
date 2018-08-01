@@ -10,12 +10,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.xzydonate.basesdk.activity.BaseEventFragment;
 import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseQuickAdapter;
 import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseViewHolder;
-import com.xzydonate.basesdk.util.UrLRouter;
+import com.xzydonate.basesdk.util.UrlRouter;
 import com.xzydonate.picture.IPictureView;
 import com.xzydonate.picture.PictureResp;
 import com.xzydonate.picture.R;
@@ -26,7 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-@Route(path = UrLRouter.PICTURE_PAGE3_FRAG)
+@Route(path = UrlRouter.PICTURE_PAGE3_FRAG)
 public class PicturePage3Fragment extends BaseEventFragment implements IPictureView {
     @BindView(R2.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -104,7 +103,7 @@ public class PicturePage3Fragment extends BaseEventFragment implements IPictureV
                         helper.setOnClickListener(R.id.iv, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-//                                ARouter.getInstance().build(UrLRouter.PICTURE_PAGE_INFO_ACT).navigation();
+//                                ARouter.getInstance().build(UrlRouter.PICTURE_PAGE_INFO_ACT).navigation();
                                 gotoActivity(PictureInfoActivity.class,item);
                             }
                         });

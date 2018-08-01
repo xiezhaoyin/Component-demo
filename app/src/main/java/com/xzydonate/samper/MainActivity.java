@@ -13,14 +13,14 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.xzydonate.basesdk.activity.BaseEventActivity;
-import com.xzydonate.basesdk.util.UrLRouter;
+import com.xzydonate.basesdk.util.UrlRouter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
-@Route(path = UrLRouter.APP_HOME)
+@Route(path = UrlRouter.APP_HOME)
 public class MainActivity extends BaseEventActivity {
 
     @BindView(R2.id.drawer)
@@ -70,8 +70,8 @@ public class MainActivity extends BaseEventActivity {
         titles.add("短视频");
         fragmentManager = getSupportFragmentManager();
         baseFragmentManager = BaseFragmentManager.getInstance();
-        baseFragmentManager.addFragment(fragmentManager,R.id.container,UrLRouter.NEWS_FRAG);
-        baseFragmentManager.showOneFragment(fragmentManager,R.id.container,UrLRouter.NEWS_FRAG);
+        baseFragmentManager.addFragment(fragmentManager,R.id.container,UrlRouter.NEWS_FRAG);
+        baseFragmentManager.showOneFragment(fragmentManager,R.id.container,UrlRouter.NEWS_FRAG);
 
         for (int i = 0; i < 3; i++) {
             View view = LayoutInflater.from(this).inflate(R.layout.tab_custom_view, null);
@@ -103,16 +103,16 @@ public class MainActivity extends BaseEventActivity {
                 int index = tab.getPosition();
                 switch (index) {
                     case 0:
-                        baseFragmentManager.addFragment(fragmentManager,R.id.container,UrLRouter.NEWS_FRAG);
-                        baseFragmentManager.showOneFragment(fragmentManager,R.id.container,UrLRouter.NEWS_FRAG);
+                        baseFragmentManager.addFragment(fragmentManager,R.id.container,UrlRouter.NEWS_FRAG);
+                        baseFragmentManager.showOneFragment(fragmentManager,R.id.container,UrlRouter.NEWS_FRAG);
                         break;
                     case 1:
-                        baseFragmentManager.addFragment(fragmentManager,R.id.container,UrLRouter.PICTURE_FRAG);
-                        baseFragmentManager.showOneFragment(fragmentManager,R.id.container,UrLRouter.PICTURE_FRAG);
+                        baseFragmentManager.addFragment(fragmentManager,R.id.container,UrlRouter.PICTURE_FRAG);
+                        baseFragmentManager.showOneFragment(fragmentManager,R.id.container,UrlRouter.PICTURE_FRAG);
                         break;
                     case 2:
-                        baseFragmentManager.addFragment(fragmentManager,R.id.container,UrLRouter.VIDEO_FRAG);
-                        baseFragmentManager.showOneFragment(fragmentManager,R.id.container,UrLRouter.VIDEO_FRAG);
+                        baseFragmentManager.addFragment(fragmentManager,R.id.container,UrlRouter.VIDEO_FRAG);
+                        baseFragmentManager.showOneFragment(fragmentManager,R.id.container,UrlRouter.VIDEO_FRAG);
                         break;
                 }
 
