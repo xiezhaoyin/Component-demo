@@ -51,7 +51,7 @@ public abstract class BaseEventFragment<T extends BaseFragPresenter> extends RxF
                 dispatch = attachEvent(new EventDispatch(), this);
             }
 
-            AndroidSupportInjection.inject(this);
+//            AndroidSupportInjection.inject(this);
             if(presenter !=null) {
                 presenter.createPresenter(this);
             }

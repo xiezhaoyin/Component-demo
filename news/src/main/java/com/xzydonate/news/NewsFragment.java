@@ -30,14 +30,14 @@ import butterknife.BindView;
 @Route(path = UrlRouter.NEWS_FRAG)
 public class NewsFragment extends BaseEventFragment<NewsPresenter> implements INewsView {
 
-    @BindView(R2.id.swipeRFLayout)
-    SwipeRefreshLayout mSwipeRFLayout;
+//    @BindView(R2.id.swipeRFLayout)
+//    SwipeRefreshLayout mSwipeRFLayout;
     @BindView(R2.id.banner)
     Banner mBanner;
     @BindView(R2.id.recyclerView)
     RecyclerView mRecyclerView;
 
-//    private NewsPresenter presenter = null;
+    private NewsPresenter presenter = null;
     private int cid = 60;
     private int page = 2;
     private List<String> imgPaths = null;
@@ -51,8 +51,8 @@ public class NewsFragment extends BaseEventFragment<NewsPresenter> implements IN
 
     @Override
     public void initView(Bundle savedInstanceState) {
-//        presenter = new NewsPresenter();
-//        presenter.createPresenter(this);
+        presenter = new NewsPresenter();
+        presenter.createPresenter(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
@@ -62,34 +62,34 @@ public class NewsFragment extends BaseEventFragment<NewsPresenter> implements IN
         mBanner.isAutoPlay(true);
         mBanner.setDelayTime(3000);
 
-        mSwipeRFLayout.setProgressBackgroundColorSchemeResource(android.R.color.white);
-        mSwipeRFLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-        mSwipeRFLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeRFLayout.setRefreshing(true);
-                presenter.queryBanner();
-                presenter.queryNews(new NewsReq(cid));
-            }
-        });
-
-        mSwipeRFLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mSwipeRFLayout.setRefreshing(true);
-                presenter.queryBanner();
-                presenter.queryNews(new NewsReq(cid));
-            }
-        });
+//        mSwipeRFLayout.setProgressBackgroundColorSchemeResource(android.R.color.white);
+//        mSwipeRFLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+//                android.R.color.holo_green_light,
+//                android.R.color.holo_orange_light,
+//                android.R.color.holo_red_light);
+//        mSwipeRFLayout.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                mSwipeRFLayout.setRefreshing(true);
+//                presenter.queryBanner();
+//                presenter.queryNews(new NewsReq(cid));
+//            }
+//        });
+//
+//        mSwipeRFLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                mSwipeRFLayout.setRefreshing(true);
+//                presenter.queryBanner();
+//                presenter.queryNews(new NewsReq(cid));
+//            }
+//        });
 
     }
 
     @Override
     public void resumeView() {
-        mSwipeRFLayout.setRefreshing(true);
+//        mSwipeRFLayout.setRefreshing(true);
         presenter.queryBanner();
         presenter.queryNews(new NewsReq(cid));
         mBanner.startAutoPlay();
@@ -99,7 +99,7 @@ public class NewsFragment extends BaseEventFragment<NewsPresenter> implements IN
     @Override
     public void destroyView() {
         mBanner.stopAutoPlay();
-//        presenter.destroyPresenter();
+        presenter.destroyPresenter();
     }
 
     @Override
@@ -126,13 +126,13 @@ public class NewsFragment extends BaseEventFragment<NewsPresenter> implements IN
     @Override
     public void queryBannerFail(String errCode, String errMsg) {
         Log.d(TAG, "queryBannerFail");
-        mSwipeRFLayout.setRefreshing(false);
+//        mSwipeRFLayout.setRefreshing(false);
     }
 
     @Override
     public void queryNewsSuccess(NewsResp data) {
         page = 2;
-        mSwipeRFLayout.setRefreshing(false);
+//        mSwipeRFLayout.setRefreshing(false);
         if (data.getDatas().size() > 0) {
             if (adapter == null) {
                 adapter = new BaseQuickAdapter<NewsResp.NewsInfo, BaseViewHolder>(R.layout.news_recycler_item, data.getDatas()) {

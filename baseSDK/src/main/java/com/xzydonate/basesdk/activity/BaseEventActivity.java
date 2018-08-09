@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.xzydonate.basesdk.R;
 import com.xzydonate.basesdk.presenter.BaseActPresenter;
 
@@ -18,7 +19,7 @@ import dagger.android.AndroidInjection;
 /**
  * Created by dell on 2018/4/24.
  */
-public abstract class BaseEventActivity<T extends BaseActPresenter> extends AutoLayoutActivity implements IAttachEvent, IBaseView, OnReceiveListener {
+public abstract class BaseEventActivity<T extends BaseActPresenter> extends RxAppCompatActivity implements IAttachEvent, IBaseView, OnReceiveListener {
 
     protected String TAG = null;
     private int layoutResId = -1;
@@ -27,7 +28,7 @@ public abstract class BaseEventActivity<T extends BaseActPresenter> extends Auto
     private boolean isCreated = false;
 
     @Inject
-    protected T presenter ;
+    T presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,8 +48,8 @@ public abstract class BaseEventActivity<T extends BaseActPresenter> extends Auto
             dispatch = attachEvent(new EventDispatch(), this);
         }
 
-        AndroidInjection.inject(this);
-        if(presenter !=null) {
+//        DaggerBaseActivityComponent.create().inject(this);
+        if (presenter != null) {
             presenter.createPresenter(this);
         }
         this.initView(savedInstanceState);
@@ -79,7 +80,7 @@ public abstract class BaseEventActivity<T extends BaseActPresenter> extends Auto
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(presenter !=null) {
+        if (presenter != null) {
             presenter.destroyPresenter();
         }
         this.destroyView();

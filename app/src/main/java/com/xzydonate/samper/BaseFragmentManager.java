@@ -17,7 +17,7 @@ import java.util.Iterator;
 public class BaseFragmentManager {
 
     private HashMap<String, Fragment> fragHashMap = null;
-    private static BaseFragmentManager instance = null;
+    private volatile static BaseFragmentManager instance = null;
 
     private BaseFragmentManager() {
         fragHashMap = new HashMap<>();
@@ -50,6 +50,7 @@ public class BaseFragmentManager {
     public void removeFragment(FragmentManager fragmentManager, String fragPath) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         if (fragHashMap.get(fragPath) != null) {
+            fragHashMap.get(fragPath).setUserVisibleHint(false);
             transaction.remove(fragHashMap.get(fragPath));
             delFragment(fragPath);
         }
@@ -59,6 +60,7 @@ public class BaseFragmentManager {
     public void hideFragment(FragmentManager fragmentManager, String fragPath) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         if (fragHashMap.get(fragPath) != null) {
+            fragHashMap.get(fragPath).setUserVisibleHint(false);
             transaction.hide(fragHashMap.get(fragPath));
         }
         transaction.commitAllowingStateLoss();
