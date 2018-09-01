@@ -45,8 +45,7 @@ public class PicturePage2Fragment extends BaseEventFragment implements IPictureV
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        presenter = new PicturePage2Presenter();
-        presenter.createPresenter(this);
+        presenter = new PicturePage2Presenter(this);
 
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());

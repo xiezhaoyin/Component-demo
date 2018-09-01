@@ -6,7 +6,7 @@ import android.os.Bundle;
  * Created by dell on 2018/4/25.
  */
 
-public interface IBaseView {
+public interface ILifecycleView {
 
     int createView(Bundle savedInstanceState);
 

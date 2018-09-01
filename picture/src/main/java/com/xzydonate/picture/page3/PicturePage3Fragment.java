@@ -43,8 +43,7 @@ public class PicturePage3Fragment extends BaseEventFragment implements IPictureV
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        presenter = new PicturePage3Presenter();
-        presenter.createPresenter(this);
+        presenter = new PicturePage3Presenter(this);
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());

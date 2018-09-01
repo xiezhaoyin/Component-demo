@@ -3,9 +3,10 @@ package com.xzydonate.picture.page2;
 
 import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.xzydonate.basesdk.entity.BaseResp;
+import com.xzydonate.basesdk.mvp.BaseFragPresenter;
+import com.xzydonate.basesdk.mvp.base.BaseObserver;
 import com.xzydonate.basesdk.network.netCall.RetrofitHelper;
-import com.xzydonate.basesdk.presenter.BaseFragPresenter;
-import com.xzydonate.basesdk.presenter.base.BaseObserver;
+
 import com.xzydonate.picture.PictureApi;
 import com.xzydonate.picture.PictureResp;
 
@@ -18,9 +19,8 @@ public class PicturePage2Presenter extends BaseFragPresenter {
     private PicturePage2Fragment fragment = null;
     private PictureApi api = null;
 
-    @Override
-    public void createPresenter(RxFragment fragment) {
-        super.createPresenter(fragment);
+    public PicturePage2Presenter(RxFragment fragment) {
+        super(fragment);
         this.fragment = (PicturePage2Fragment) fragment;
         api = RetrofitHelper.RETROFIT.create(PictureApi.class);
     }

@@ -2,35 +2,25 @@ package com.xzydonate.news;
 
 import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.xzydonate.basesdk.entity.WanResp;
+import com.xzydonate.basesdk.mvp.BaseFragPresenter;
+import com.xzydonate.basesdk.mvp.base.WanObserver;
 import com.xzydonate.basesdk.network.netCall.RetrofitHelper;
-import com.xzydonate.basesdk.presenter.BaseFragPresenter;
-import com.xzydonate.basesdk.presenter.base.WanObserver;
 import com.xzydonate.basesdk.util.Obj2MapUtil;
 
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import io.reactivex.Observable;
-
 
 public class NewsPresenter extends BaseFragPresenter {
 
     private NewsFragment fragment = null;
     private NewsApi api = null;
 
-    @Inject
-    public NewsPresenter(){
-
-    }
-
-    @Override
-    public void createPresenter(RxFragment fragment) {
-        super.createPresenter(fragment);
+    public NewsPresenter(RxFragment fragment) {
+        super(fragment);
         this.fragment = (NewsFragment) fragment;
         api = RetrofitHelper.RETROFIT_WAN.create(NewsApi.class);
-
     }
 
     @Override

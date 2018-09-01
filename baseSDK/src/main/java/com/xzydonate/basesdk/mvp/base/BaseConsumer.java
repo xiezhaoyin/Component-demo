@@ -1,4 +1,4 @@
-package com.xzydonate.basesdk.presenter.base;
+package com.xzydonate.basesdk.mvp.base;
 
 
 import io.reactivex.annotations.NonNull;

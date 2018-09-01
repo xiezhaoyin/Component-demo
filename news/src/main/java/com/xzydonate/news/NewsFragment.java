@@ -51,8 +51,8 @@ public class NewsFragment extends BaseEventFragment<NewsPresenter> implements IN
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        presenter = new NewsPresenter();
-        presenter.createPresenter(this);
+        presenter = new NewsPresenter(this);
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));

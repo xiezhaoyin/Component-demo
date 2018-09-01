@@ -7,28 +7,27 @@ import android.support.annotation.Nullable;
 
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.xzydonate.basesdk.R;
-import com.xzydonate.basesdk.presenter.BaseActPresenter;
+import com.xzydonate.basesdk.mvp.BaseActPresenter;
 
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import dagger.android.AndroidInjection;
 
 /**
  * Created by dell on 2018/4/24.
  */
-public abstract class BaseEventActivity<T extends BaseActPresenter> extends RxAppCompatActivity implements IAttachEvent, IBaseView, OnReceiveListener {
+public abstract class BaseEventActivity<P extends BaseActPresenter> extends RxAppCompatActivity implements IAttachEvent, ILifecycleView, OnReceiveListener {
 
     protected String TAG = null;
-    private int layoutResId = -1;
+    private int layoutResId = 0;
     protected EventDispatch dispatch = null;
     private Unbinder unbinder = null;
     private boolean isCreated = false;
 
     @Inject
-    T presenter;
+    protected P presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,7 +35,7 @@ public abstract class BaseEventActivity<T extends BaseActPresenter> extends RxAp
         TAG = getClass().getSimpleName();
 
         layoutResId = this.createView(savedInstanceState);
-        if (layoutResId != -1) {
+        if (layoutResId != 0) {
             setContentView(layoutResId);
             unbinder = ButterKnife.bind(this);
             isCreated = true;
@@ -48,10 +47,6 @@ public abstract class BaseEventActivity<T extends BaseActPresenter> extends RxAp
             dispatch = attachEvent(new EventDispatch(), this);
         }
 
-//        DaggerBaseActivityComponent.create().inject(this);
-        if (presenter != null) {
-            presenter.createPresenter(this);
-        }
         this.initView(savedInstanceState);
     }
 

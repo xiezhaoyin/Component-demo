@@ -1,28 +1,30 @@
 package com.xzydonate.picture.page1;
 
 
-import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.xzydonate.basesdk.entity.BaseResp;
-import com.xzydonate.basesdk.mvp.BaseFragPresenter;
+import com.xzydonate.basesdk.mvp.BasePresenter;
 import com.xzydonate.basesdk.mvp.base.BaseObserver;
 import com.xzydonate.basesdk.network.netCall.RetrofitHelper;
-
-import com.xzydonate.picture.PictureApi;
 import com.xzydonate.picture.PictureResp;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 
-public class PicturePage1Presenter extends BaseFragPresenter {
+public class PicturePagePresenter extends BasePresenter<PictureContract.Mode,PictureContract.View> {
 
-    private PicturePage1Fragment fragment = null;
-    private PictureApi api = null;
+    private PictureContract.Mode api = null;
 
-    public PicturePage1Presenter(RxFragment fragment) {
-        super(fragment);
-        this.fragment = (PicturePage1Fragment) fragment;
-        api = RetrofitHelper.RETROFIT.create(PictureApi.class);
+    @Inject
+    public PicturePagePresenter(PictureContract.Mode mode, PictureContract.View view){
+        super(mode,view);
+    }
+
+    @Override
+    public void createPresenter() {
+        api = RetrofitHelper.RETROFIT.create(PictureContract.Mode.class);
     }
 
     @Override
@@ -31,37 +33,37 @@ public class PicturePage1Presenter extends BaseFragPresenter {
     }
 
     public void loadPictures() {
-        if (fragment == null || api == null) {
+        if (mView == null || api == null) {
             return;
         }
         Observable<BaseResp<List<PictureResp>>> observable = api.getPictures(2, 1);
         setSubscribe(observable, new BaseObserver<List<PictureResp>>(new BaseObserver.OnCallback<List<PictureResp>>() {
             @Override
             public void onCall(List<PictureResp> response) {
-                fragment.loadSuccess(response);
+                mView.loadSuccess(response);
             }
 
             @Override
             public void onError(String errCode, String errMsg) {
-                fragment.loadFail(errCode, errMsg);
+                mView.loadFail(errCode, errMsg);
             }
         }));
     }
 
     public void loadMorePictures(int number, int page) {
-        if (fragment == null || api == null) {
+        if (mView == null || api == null) {
             return;
         }
         Observable<BaseResp<List<PictureResp>>> observable = api.getPictures(number, page);
         setSubscribe(observable, new BaseObserver<List<PictureResp>>(new BaseObserver.OnCallback<List<PictureResp>>() {
             @Override
             public void onCall(List<PictureResp> response) {
-                fragment.loadMoreSuccess(response);
+                mView.loadMoreSuccess(response);
             }
 
             @Override
             public void onError(String errCode, String errMsg) {
-                fragment.loadMoreFail(errCode, errMsg);
+                mView.loadMoreFail(errCode, errMsg);
             }
         }));
     }

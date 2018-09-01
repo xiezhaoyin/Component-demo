@@ -66,7 +66,7 @@ public class MainActivity extends BaseEventActivity {
     private void setData() {
         List<String> titles = new ArrayList<>();
         titles.add("博文");
-        titles.add("图片");
+        titles.add("美图");
         titles.add("短视频");
         fragmentManager = getSupportFragmentManager();
         baseFragmentManager = BaseFragmentManager.getInstance();

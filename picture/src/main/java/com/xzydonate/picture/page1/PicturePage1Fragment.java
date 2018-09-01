@@ -27,7 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-@Route(path = UrlRouter.PICTURE_PAGE1_FRAG)
+//@Route(path = UrlRouter.PICTURE_PAGE1_FRAG)
 public class PicturePage1Fragment extends BaseEventFragment implements IPictureView {
     @BindView(R2.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -45,8 +45,8 @@ public class PicturePage1Fragment extends BaseEventFragment implements IPictureV
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        presenter = new PicturePage1Presenter();
-        presenter.createPresenter(this);
+
+        presenter = new PicturePage1Presenter(this);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());

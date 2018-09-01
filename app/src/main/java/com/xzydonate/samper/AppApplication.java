@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 
-public class MyApplication extends Application {
+public class AppApplication extends DaggerApp {
 
     @Override
     public void onCreate() {
