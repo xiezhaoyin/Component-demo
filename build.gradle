@@ -1,9 +1,8 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 apply from: "config.gradle"
 //apply plugin: 'com.alibaba.arouter'
-
 buildscript {
-    
+
     repositories {
         google()
         jcenter()
@@ -18,14 +17,19 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-
 allprojects {
     repositories {
         google()
         jcenter()
     }
 }
-
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.1'
+}
+dependencies {
 }
