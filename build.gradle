@@ -9,7 +9,7 @@ buildscript {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-beta02'
+        classpath 'com.android.tools.build:gradle:3.2.1'
         classpath 'com.jakewharton:butterknife-gradle-plugin:9.0.0-SNAPSHOT'
 //        classpath "com.alibaba:arouter-register:1.0.2"
 
@@ -27,9 +27,9 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.1'
-}
+//android {
+//    compileSdkVersion 28
+////    buildToolsVersion '28.0.1'
+//}
 dependencies {
 }
