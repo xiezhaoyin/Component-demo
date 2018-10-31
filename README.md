@@ -1,6 +1,6 @@
 # Android 组件化
 1. 技术栈：
-   RxJava + RxAndroid
+RxJava + RxAndroid
    Okhttp + Retrofit
    Eventbus
    Glide
