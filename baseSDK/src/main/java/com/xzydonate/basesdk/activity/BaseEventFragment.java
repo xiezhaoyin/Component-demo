@@ -83,12 +83,12 @@ public abstract class BaseEventFragment<T extends BaseFragPresenter> extends RxF
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if(presenter !=null) {
-            presenter.destroyPresenter();
-        }
         this.destroyView();
         unbinder.unbind();
         detachEvent();
+        if (presenter != null) {
+            presenter.destroyPresenter();
+        }
     }
 
     protected void gotoActivity(Class cl, @Nullable Object object) {

@@ -27,7 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-//@Route(path = UrlRouter.PICTURE_PAGE1_FRAG)
+@Route(path = UrlRouter.PICTURE_PAGE1_FRAG)
 public class PicturePage1Fragment extends BaseEventFragment implements IPictureView {
     @BindView(R2.id.recyclerView)
     RecyclerView mRecyclerView;

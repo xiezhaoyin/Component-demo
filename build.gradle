@@ -17,6 +17,10 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+
+
+
+
 allprojects {
     repositories {
         google()
@@ -25,11 +29,4 @@ allprojects {
 }
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-//android {
-//    compileSdkVersion 28
-////    buildToolsVersion '28.0.1'
-//}
-dependencies {
 }

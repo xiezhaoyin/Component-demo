@@ -160,5 +160,6 @@ public class MainActivity extends BaseEventActivity {
         View main = LayoutInflater.from(this).inflate(R.layout.main_menu, mainView, true);
         tabLayout = main.findViewById(R.id.tab);
         container = main.findViewById(R.id.container);
+
     }
 }

@@ -73,8 +73,8 @@ public class PicturePage3Fragment extends BaseEventFragment implements IPictureV
 
     @Override
     public void resumeView() {
-        mSwipeRFLayout.setRefreshing(true);
-        presenter.loadPictures();
+//        mSwipeRFLayout.setRefreshing(true);
+//        presenter.loadPictures();
     }
 
     @Override
