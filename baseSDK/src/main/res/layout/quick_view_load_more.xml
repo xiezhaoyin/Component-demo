@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_48">
+    android:layout_height="@dimen/dp_50">
 
     <LinearLayout
         android:id="@+id/load_more_loading_view"
@@ -16,7 +15,7 @@
             android:id="@+id/load_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dp_4"/>
+            android:layout_marginRight="@dimen/dp_4" />
 
         <TextView
             android:id="@+id/loading_text"
@@ -25,7 +24,7 @@
             android:layout_marginLeft="@dimen/dp_4"
             android:text="@string/loading"
             android:textColor="#999999"
-            android:textSize="@dimen/sp_14"/>
+            android:textSize="@dimen/sp_14" />
     </LinearLayout>
 
     <FrameLayout
@@ -34,14 +33,13 @@
         android:layout_height="match_parent"
         android:visibility="gone">
 
-
         <TextView
             android:id="@+id/tv_prompt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/load_failed"
-            android:textColor="#999999"/>
+            android:textColor="#999999" />
 
     </FrameLayout>
 
@@ -56,6 +54,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/load_end"
-            android:textColor="#999999"/>
+            android:textColor="#999999" />
     </FrameLayout>
 </FrameLayout>

@@ -12,10 +12,10 @@ import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
-import com.xzydonate.baseres.util.DensityUtil;
 import com.xzydonate.basesdk.activity.BaseEventFragment;
 import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseQuickAdapter;
 import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseViewHolder;
+import com.xzydonate.basesdk.util.DensityUtil;
 import com.xzydonate.basesdk.util.UrlRouter;
 import com.xzydonate.picture.IPictureView;
 import com.xzydonate.picture.PictureResp;

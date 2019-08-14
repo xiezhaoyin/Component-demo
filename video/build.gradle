@@ -45,5 +45,5 @@ dependencies {
     compileOnly rootProject.ext.dependencies["arouter-compiler"]
 
     implementation project(":baseSDK")
-    implementation project(":baseRES")
+//    implementation project(":baseRES")
 }

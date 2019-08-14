@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitHelper {
 
     private static String BASE_URL = "http://gank.io/api/";
-    private static final String BASE_WAN_URL = "http://www.wanandroid.com/";
+    private static final String BASE_WAN_URL = "https://www.wanandroid.com/";
     private static Converter.Factory converter = GsonConverterFactory.create();
     private static CallAdapter.Factory callAdapter = RxJava2CallAdapterFactory.create();
 

@@ -23,11 +23,11 @@ import butterknife.BindView;
 @Route(path = UrlRouter.APP_HOME)
 public class MainActivity extends BaseEventActivity {
 
-    @BindView(R2.id.drawer)
+    @BindView(R.id.drawer)
     DrawerLayout drawerLayout;
-    @BindView(R2.id.main_view)
+    @BindView(R.id.main_view)
     FrameLayout mainView;
-    @BindView(R2.id.navigation_view)
+    @BindView(R.id.navigation_view)
     NavigationView navigationView;
 
     //mainView

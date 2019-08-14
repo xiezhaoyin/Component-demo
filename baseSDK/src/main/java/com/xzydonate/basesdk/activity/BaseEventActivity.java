@@ -1,8 +1,11 @@
 package com.xzydonate.basesdk.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Window;
+import android.view.WindowManager;
 
 
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -31,6 +34,12 @@ public abstract class BaseEventActivity<P extends BaseActPresenter> extends RxAp
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+
         super.onCreate(savedInstanceState);
         TAG = getClass().getSimpleName();
 
@@ -48,6 +57,7 @@ public abstract class BaseEventActivity<P extends BaseActPresenter> extends RxAp
         }
 
         this.initView(savedInstanceState);
+
     }
 
     @Override
