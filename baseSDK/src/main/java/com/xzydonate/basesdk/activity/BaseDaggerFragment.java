@@ -8,8 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.trello.rxlifecycle2.components.support.RxFragment;
-import com.xzydonate.basesdk.mvp.BaseFragPresenter;
+import com.xzydonate.basesdk.mvp.IPresenter;
 
 import javax.inject.Inject;
 
@@ -21,7 +20,7 @@ import butterknife.Unbinder;
  * Created by dell on 2018/3/16.
  */
 
-public abstract class BaseEventFragment<T extends BaseFragPresenter> extends RxFragment implements IAttachEvent, ILifecycleView, OnReceiveListener {
+public abstract class BaseDaggerFragment<T extends IPresenter> extends RxDaggerFragment implements IAttachEvent, ILifecycleView, OnReceiveListener {
 
     protected String TAG = null;
     private int layoutResId = 0;
@@ -36,20 +35,20 @@ public abstract class BaseEventFragment<T extends BaseFragPresenter> extends RxF
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
         TAG = getClass().getSimpleName();
 
-        layoutResId = this.createView(savedInstanceState);
+        layoutResId = this.createView();
         if (layoutResId != 0) {
             View view = inflater.inflate(layoutResId, null);
             unbinder = ButterKnife.bind(this, view);
             isCreated = true;
 
+            this.initView(savedInstanceState);
+
             if (dispatch == null) {
                 dispatch = attachEvent(new EventDispatch(), this);
             }
 
-            this.initView(savedInstanceState);
             return view;
         } else {
             throw new NullPointerException("createView don't be null");
@@ -83,12 +82,12 @@ public abstract class BaseEventFragment<T extends BaseFragPresenter> extends RxF
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        this.destroyView();
-        unbinder.unbind();
-        detachEvent();
         if (presenter != null) {
             presenter.destroyPresenter();
         }
+        this.destroyView();
+        unbinder.unbind();
+        detachEvent();
     }
 
     protected void gotoActivity(Class cl, @Nullable Object object) {

@@ -46,40 +46,60 @@ public class NewsPresenter extends BaseFragPresenter {
         }));
     }
 
-    public void queryNews(Object req) {
+    public void queryProjectTree() {
         if (fragment == null || api == null) {
             return;
         }
-        Map<String, Object> params = Obj2MapUtil.objectToMap(req);
-        Observable<WanResp<NewsResp>> observable = api.queryNews(1, params);
-        setSubscribe(observable, new WanObserver<NewsResp>(new WanObserver.OnCallback<NewsResp>() {
+        Observable<WanResp<List<ProjectTreeResp>>> observable = api.queryProjectTree();
+        setSubscribe(observable, new WanObserver<List<ProjectTreeResp>>(new WanObserver.OnCallback<List<ProjectTreeResp>>() {
             @Override
-            public void onCall(NewsResp response) {
-                fragment.queryNewsSuccess(response);
+            public void onCall(List<ProjectTreeResp> response) {
+                fragment.queryProjectTreeSuccess(response);
             }
 
             @Override
             public void onError(String errCode, String errMsg) {
-                fragment.queryNewsFail(errCode, errMsg);
+                fragment.queryProjectTreeFail(errCode, errMsg);
             }
         }));
     }
 
-    public void queryMoreNews(int page, Object req) {
+    public void queryProject(ProjectReq req) {
         if (fragment == null || api == null) {
             return;
         }
+
         Map<String, Object> params = Obj2MapUtil.objectToMap(req);
-        Observable<WanResp<NewsResp>> observable = api.queryNews(page, params);
-        setSubscribe(observable, new WanObserver<NewsResp>(new WanObserver.OnCallback<NewsResp>() {
+        Observable<WanResp<ProjectResp>> observable = api.queryProject(1, params);
+        setSubscribe(observable, new WanObserver<ProjectResp>(new WanObserver.OnCallback<ProjectResp>() {
             @Override
-            public void onCall(NewsResp response) {
-                fragment.queryMoreNewsSuccess(response);
+            public void onCall(ProjectResp response) {
+                fragment.queryProjectSuccess(response);
             }
 
             @Override
             public void onError(String errCode, String errMsg) {
-                fragment.queryMoreNewsFail(errCode, errMsg);
+                fragment.queryProjectFail(errCode, errMsg);
+            }
+        }));
+    }
+
+    public void queryMoreProject(int page, Object req) {
+        if (fragment == null || api == null) {
+            return;
+        }
+
+        Map<String, Object> params = Obj2MapUtil.objectToMap(req);
+        Observable<WanResp<ProjectResp>> observable = api.queryProject(page, params);
+        setSubscribe(observable, new WanObserver<ProjectResp>(new WanObserver.OnCallback<ProjectResp>() {
+            @Override
+            public void onCall(ProjectResp response) {
+                fragment.queryMoreProjectSuccess(response);
+            }
+
+            @Override
+            public void onError(String errCode, String errMsg) {
+                fragment.queryMoreProjectFail(errCode, errMsg);
             }
         }));
     }

@@ -29,7 +29,7 @@ android {
         }
     }
 
-    resourcePrefix "video_"
+//    resourcePrefix "video_"
 
 }
 

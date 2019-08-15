@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#f6f6f6</color>
-    <color name="colorPrimaryDark">#f6f6f6</color>
-    <color name="colorAccent">#D81B60</color>
+
+    <color name="backgroundColor">#f6f6f6</color>
+    <color name="colorStatusBar">@color/white</color>
+
+    <color name="colorPrimaryLight">#9dc8c8</color>
+    <color name="colorPrimary">#58c9b9</color>
+    <color name="colorPrimaryDark">#519d9e</color>
+    <color name="colorAccent">#d1b6e1</color>
 
     <color name="transparent">#00ffffff</color>
     <color name="transparent_light">#33000000</color>
@@ -27,6 +32,5 @@
     <color name="red">#ff5b50</color>
     <color name="darkRed">#e94858</color>
 
-    <color name="backgroundColor">#f6f6f6</color>
-    <color name="backgroundColorPress">#DBDBD3</color>
+
 </resources>

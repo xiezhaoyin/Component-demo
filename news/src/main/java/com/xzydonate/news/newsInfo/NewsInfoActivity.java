@@ -6,7 +6,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.xzydonate.basesdk.activity.BaseEventActivity;
+import com.xzydonate.basesdk.activity.BaseActivity;
 import com.xzydonate.news.NewsResp;
 import com.xzydonate.news.R;
 import com.xzydonate.news.R2;
@@ -14,14 +14,14 @@ import com.xzydonate.news.R2;
 import butterknife.BindView;
 
 
-public class NewsInfoActivity extends BaseEventActivity {
+public class NewsInfoActivity extends BaseActivity {
 
     @BindView(R2.id.toolbar)
     Toolbar mToolbar;
     @BindView(R2.id.webView)
     WebView mWebView;
     @Override
-    public int createView(Bundle savedInstanceState) {
+    public int createView() {
         return R.layout.activity_news_page_info;
     }
 

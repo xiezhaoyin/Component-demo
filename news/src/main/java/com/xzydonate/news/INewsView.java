@@ -8,11 +8,15 @@ public interface INewsView {
 
     void queryBannerFail(String errCode, String errMsg);
 
-    void queryNewsSuccess(NewsResp data);
+    void queryProjectTreeSuccess(List<ProjectTreeResp> data);
 
-    void queryNewsFail(String errCode, String errMsg);
+    void queryProjectTreeFail(String errCode, String errMsg);
 
-    void queryMoreNewsSuccess(NewsResp data);
+    void queryProjectSuccess(ProjectResp data);
 
-    void queryMoreNewsFail(String errCode, String errMsg);
+    void queryProjectFail(String errCode, String errMsg);
+
+    void queryMoreProjectSuccess(ProjectResp data);
+
+    void queryMoreProjectFail(String errCode, String errMsg);
 }

@@ -11,6 +11,7 @@ public class GlideImageLoader extends ImageLoader {
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
         Log.d("Glide","path == " + path);
-        Glide.with(context).load((String) path).into(imageView);
+        BannerResp bannerResp = (BannerResp) path;
+        Glide.with(context).load(bannerResp.getImagePath()).into(imageView);
     }
 }

@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 public interface ILifecycleView {
 
-    int createView(Bundle savedInstanceState);
+    int createView();
 
     void initView(Bundle savedInstanceState);
 

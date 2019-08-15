@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
-import com.xzydonate.basesdk.activity.BaseEventActivity;
+import com.xzydonate.basesdk.activity.BaseActivity;
 import com.xzydonate.basesdk.util.UrlRouter;
 import com.xzydonate.picture.PictureResp;
 import com.xzydonate.picture.R;
@@ -18,7 +18,7 @@ import com.xzydonate.picture.R2;
 import butterknife.BindView;
 
 @Route(path = UrlRouter.PICTURE_PAGE_INFO_ACT)
-public class PictureInfoActivity extends BaseEventActivity {
+public class PictureInfoActivity extends BaseActivity {
 
     @BindView(R2.id.app_bar)
     AppBarLayout mAppBarLayout;
@@ -30,7 +30,7 @@ public class PictureInfoActivity extends BaseEventActivity {
     FloatingActionButton mFab;
 
     @Override
-    public int createView(Bundle savedInstanceState) {
+    public int createView() {
         return R.layout.activity_picture_page_info;
     }
 

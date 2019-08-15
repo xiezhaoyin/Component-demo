@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.xzydonate.basesdk.activity.BaseEventFragment;
+import com.xzydonate.basesdk.activity.BaseFragment;
 import com.xzydonate.basesdk.adapter.FragmentAdapter;
 import com.xzydonate.basesdk.util.UrlRouter;
 import com.xzydonate.picture.page1.PicturePage1Fragment;
@@ -22,7 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 
 @Route(path = UrlRouter.PICTURE_FRAG)
-public class PictureFragment extends BaseEventFragment {
+public class PictureFragment extends BaseFragment {
 
     @BindView(R2.id.toolbar)
     Toolbar mToolbar;
@@ -34,7 +34,7 @@ public class PictureFragment extends BaseEventFragment {
     private FragmentAdapter adapter = null;
 
     @Override
-    public int createView(Bundle savedInstanceState) {
+    public int createView() {
         return R.layout.fragment_picture;
     }
 

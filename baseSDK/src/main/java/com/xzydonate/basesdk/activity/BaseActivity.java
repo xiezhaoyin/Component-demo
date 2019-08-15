@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.xzydonate.basesdk.R;
 import com.xzydonate.basesdk.mvp.BaseActPresenter;
+import com.xzydonate.basesdk.util.StatusBarUtil;
 
 
 import javax.inject.Inject;
@@ -21,7 +22,7 @@ import butterknife.Unbinder;
 /**
  * Created by dell on 2018/4/24.
  */
-public abstract class BaseEventActivity<P extends BaseActPresenter> extends RxAppCompatActivity implements IAttachEvent, ILifecycleView, OnReceiveListener {
+public abstract class BaseActivity<P extends BaseActPresenter> extends RxAppCompatActivity implements IAttachEvent, ILifecycleView, OnReceiveListener {
 
     protected String TAG = null;
     private int layoutResId = 0;
@@ -34,16 +35,10 @@ public abstract class BaseEventActivity<P extends BaseActPresenter> extends RxAp
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window window = getWindow();
-            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-
         super.onCreate(savedInstanceState);
         TAG = getClass().getSimpleName();
 
-        layoutResId = this.createView(savedInstanceState);
+        layoutResId = this.createView();
         if (layoutResId != 0) {
             setContentView(layoutResId);
             unbinder = ButterKnife.bind(this);
@@ -52,12 +47,18 @@ public abstract class BaseEventActivity<P extends BaseActPresenter> extends RxAp
             throw new NullPointerException("createView don't be null");
         }
 
+        this.initView(savedInstanceState);
+
         if (dispatch == null) {
             dispatch = attachEvent(new EventDispatch(), this);
         }
 
-        this.initView(savedInstanceState);
+        setStatusBar();
+        StatusBarUtil.setLightMode(this);
+    }
 
+    protected void setStatusBar() {
+        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorStatusBar), 0);
     }
 
     @Override

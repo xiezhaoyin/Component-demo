@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
-import com.xzydonate.basesdk.activity.BaseEventFragment;
+import com.xzydonate.basesdk.activity.BaseFragment;
 import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseQuickAdapter;
 import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseViewHolder;
 import com.xzydonate.basesdk.util.UrlRouter;
@@ -26,7 +26,7 @@ import java.util.List;
 import butterknife.BindView;
 
 @Route(path = UrlRouter.PICTURE_PAGE3_FRAG)
-public class PicturePage3Fragment extends BaseEventFragment implements IPictureView {
+public class PicturePage3Fragment extends BaseFragment implements IPictureView {
     @BindView(R2.id.recyclerView)
     RecyclerView mRecyclerView;
     @BindView(R2.id.swipeRFLayout)
@@ -37,7 +37,7 @@ public class PicturePage3Fragment extends BaseEventFragment implements IPictureV
     private int page = 2;
 
     @Override
-    public int createView(Bundle savedInstanceState) {
+    public int createView() {
         return R.layout.fragment_picture_page1;
     }
 
