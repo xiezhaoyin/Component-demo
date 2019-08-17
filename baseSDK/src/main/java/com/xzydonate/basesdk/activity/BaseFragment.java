@@ -1,6 +1,7 @@
 package com.xzydonate.basesdk.activity;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,9 +29,20 @@ public abstract class BaseFragment<T extends BaseFragPresenter> extends RxFragme
     private EventDispatch dispatch = null;
     private Unbinder unbinder = null;
     private boolean isCreated = false;
+    protected int type = -1;
 
     @Inject
     protected T presenter;
+
+    // 接收参数
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            type = arguments.getInt("type", -1);
+        }
+    }
 
     @Nullable
     @Override
@@ -54,6 +66,11 @@ public abstract class BaseFragment<T extends BaseFragPresenter> extends RxFragme
         } else {
             throw new NullPointerException("createView don't be null");
         }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -102,5 +119,23 @@ public abstract class BaseFragment<T extends BaseFragPresenter> extends RxFragme
         }
         startActivity(intent);
     }
+
+    // 携带参数
+    public BaseFragment newInstance(BaseFragment fragment, int type) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("type", type);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    // 更新参数
+    public void updateArguments(int type) {
+        this.type = type;
+        Bundle args = getArguments();
+        if (args != null) {
+            args.putInt("type", type);
+        }
+    }
+
 
 }

@@ -11,7 +11,7 @@
         android:orientation="horizontal"
         android:visibility="visible">
 
-        <com.xzydonate.basesdk.adapter.recyclerAdapter.widget.RefreshView
+        <com.xzydonate.basesdk.widget.recyclerview.widget.RefreshView
             android:id="@+id/load_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

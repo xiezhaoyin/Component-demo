@@ -15,6 +15,6 @@
         android:id="@+id/tab"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        app:tabBackground="@drawable/tab_bg"
+        app:tabBackground="@drawable/tab_click_bg"
         app:tabIndicatorHeight="0dp" />
 </LinearLayout>

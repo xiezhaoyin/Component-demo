@@ -30,7 +30,7 @@ public class WanObserver<T> implements Observer<WanResp<T>> {
             if (listener != null && resp.getErrorCode() == 0) {
                 listener.onCall(resp.getData());
             } else {
-                listener.onError(resp.getErrorCode() + "", "" + resp.getErrorMsg());
+                listener.onError(resp.getErrorCode() + "", resp.getErrorMsg());
             }
         }
     }

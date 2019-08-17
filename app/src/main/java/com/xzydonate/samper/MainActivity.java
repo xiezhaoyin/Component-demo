@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.xzydonate.basesdk.activity.BaseActivity;
-import com.xzydonate.basesdk.util.StatusBarUtil;
 import com.xzydonate.basesdk.util.UrlRouter;
 
 import java.util.ArrayList;
@@ -82,15 +81,15 @@ public class MainActivity extends BaseActivity {
             TabLayout.Tab tab = tabLayout.newTab();
             switch (i) {
                 case 0:
-                    img.setBackgroundResource(R.drawable.selector);
+                    img.setBackgroundResource(R.drawable.selector_tablayout);
                     text.setText(titles.get(i));
                     break;
                 case 1:
-                    img.setBackgroundResource(R.drawable.selector);
+                    img.setBackgroundResource(R.drawable.selector_tablayout);
                     text.setText(titles.get(i));
                     break;
                 case 2:
-                    img.setBackgroundResource(R.drawable.selector);
+                    img.setBackgroundResource(R.drawable.selector_tablayout);
                     text.setText(titles.get(i));
                     break;
             }

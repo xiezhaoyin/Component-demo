@@ -18,7 +18,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.xzydonate.basesdk.adapter.recyclerAdapter.widget.RefreshView
+            <com.xzydonate.basesdk.widget.recyclerview.widget.RefreshView
                 android:id="@+id/refresh_view"
                 android:layout_width="32dp"
                 android:layout_height="32dp"

@@ -10,7 +10,7 @@
         android:id="@+id/tab_img"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@drawable/selector" />
+        android:src="@drawable/selector_tablayout" />
 
     <TextView
         android:id="@+id/tab_tag"

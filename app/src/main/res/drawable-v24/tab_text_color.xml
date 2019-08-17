@@ -8,7 +8,7 @@
     <item android:color="#fe3e3e" android:state_focused="true"  android:state_selected="true"/>
 
     <!-- Pressed -->
-    <item android:color="#3f3f3f" />
     <item android:color="#fe3e3e" android:state_pressed="true"/>
+    <item android:color="#3f3f3f" />
 
 </selector>

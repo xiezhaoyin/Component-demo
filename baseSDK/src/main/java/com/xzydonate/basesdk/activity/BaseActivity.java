@@ -35,6 +35,8 @@ public abstract class BaseActivity<P extends BaseActPresenter> extends RxAppComp
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        setStatusBar();
+        StatusBarUtil.setLightMode(this);
         super.onCreate(savedInstanceState);
         TAG = getClass().getSimpleName();
 
@@ -53,8 +55,6 @@ public abstract class BaseActivity<P extends BaseActPresenter> extends RxAppComp
             dispatch = attachEvent(new EventDispatch(), this);
         }
 
-        setStatusBar();
-        StatusBarUtil.setLightMode(this);
     }
 
     protected void setStatusBar() {

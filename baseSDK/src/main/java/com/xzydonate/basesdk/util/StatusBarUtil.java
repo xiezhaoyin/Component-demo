@@ -520,7 +520,7 @@ public class StatusBarUtil {
     @TargetApi(Build.VERSION_CODES.M)
     public static void setLightMode(Activity activity) {
         setMIUIStatusBarDarkIcon(activity, true);
-        setMeizuStatusBarDarkIcon(activity, true);
+        setMEIZUStatusBarDarkIcon(activity, true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
@@ -529,20 +529,12 @@ public class StatusBarUtil {
     @TargetApi(Build.VERSION_CODES.M)
     public static void setDarkMode(Activity activity) {
         setMIUIStatusBarDarkIcon(activity, false);
-        setMeizuStatusBarDarkIcon(activity, false);
+        setMEIZUStatusBarDarkIcon(activity, false);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
     }
 
-    private static void setAndroidNativeLightStatusBar(Activity activity, boolean dark) {
-        View decor = activity.getWindow().getDecorView();
-        if (dark) {
-            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        } else {
-            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-        }
-    }
 
     /**
      * 修改 MIUI V6  以上状态栏颜色
@@ -563,7 +555,7 @@ public class StatusBarUtil {
     /**
      * 修改魅族状态栏字体颜色 Flyme 4.0
      */
-    private static void setMeizuStatusBarDarkIcon(@NonNull Activity activity, boolean darkIcon) {
+    private static void setMEIZUStatusBarDarkIcon(@NonNull Activity activity, boolean darkIcon) {
         try {
             WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
             Field darkFlag = WindowManager.LayoutParams.class.getDeclaredField("MEIZU_FLAG_DARK_STATUS_BAR_ICON");

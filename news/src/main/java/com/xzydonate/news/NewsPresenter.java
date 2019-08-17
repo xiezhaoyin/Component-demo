@@ -5,21 +5,20 @@ import com.xzydonate.basesdk.entity.WanResp;
 import com.xzydonate.basesdk.mvp.BaseFragPresenter;
 import com.xzydonate.basesdk.mvp.base.WanObserver;
 import com.xzydonate.basesdk.network.netCall.RetrofitHelper;
-import com.xzydonate.basesdk.util.Obj2MapUtil;
+import com.xzydonate.news.search.HotKeyResp;
 
 import java.util.List;
-import java.util.Map;
 
 import io.reactivex.Observable;
 
 public class NewsPresenter extends BaseFragPresenter {
 
-    private NewsFragment fragment = null;
+    private INewsView view = null;
     private NewsApi api = null;
 
     public NewsPresenter(RxFragment fragment) {
         super(fragment);
-        this.fragment = (NewsFragment) fragment;
+        this.view = (NewsFragment) fragment;
         api = RetrofitHelper.RETROFIT_WAN.create(NewsApi.class);
     }
 
@@ -29,77 +28,39 @@ public class NewsPresenter extends BaseFragPresenter {
     }
 
     public void queryBanner() {
-        if (fragment == null || api == null) {
+        if (view == null || api == null) {
             return;
         }
+
         Observable<WanResp<List<BannerResp>>> observable = api.queryBanner();
         setSubscribe(observable, new WanObserver<List<BannerResp>>(new WanObserver.OnCallback<List<BannerResp>>() {
             @Override
             public void onCall(List<BannerResp> response) {
-                fragment.queryBannerSuccess(response);
+                view.queryBannerSuccess(response);
             }
 
             @Override
             public void onError(String errCode, String errMsg) {
-                fragment.queryBannerFail(errCode, errMsg);
+                view.queryBannerFail(errCode, errMsg);
             }
         }));
     }
 
-    public void queryProjectTree() {
-        if (fragment == null || api == null) {
+    public void queryHotKey() {
+        if (view == null || api == null) {
             return;
         }
-        Observable<WanResp<List<ProjectTreeResp>>> observable = api.queryProjectTree();
-        setSubscribe(observable, new WanObserver<List<ProjectTreeResp>>(new WanObserver.OnCallback<List<ProjectTreeResp>>() {
+
+        Observable<WanResp<List<HotKeyResp>>> observable = api.queryHotKey();
+        setSubscribe(observable, new WanObserver<List<HotKeyResp>>(new WanObserver.OnCallback<List<HotKeyResp>>() {
             @Override
-            public void onCall(List<ProjectTreeResp> response) {
-                fragment.queryProjectTreeSuccess(response);
+            public void onCall(List<HotKeyResp> response) {
+                view.queryHotKeySuccess(response);
             }
 
             @Override
             public void onError(String errCode, String errMsg) {
-                fragment.queryProjectTreeFail(errCode, errMsg);
-            }
-        }));
-    }
-
-    public void queryProject(ProjectReq req) {
-        if (fragment == null || api == null) {
-            return;
-        }
-
-        Map<String, Object> params = Obj2MapUtil.objectToMap(req);
-        Observable<WanResp<ProjectResp>> observable = api.queryProject(1, params);
-        setSubscribe(observable, new WanObserver<ProjectResp>(new WanObserver.OnCallback<ProjectResp>() {
-            @Override
-            public void onCall(ProjectResp response) {
-                fragment.queryProjectSuccess(response);
-            }
-
-            @Override
-            public void onError(String errCode, String errMsg) {
-                fragment.queryProjectFail(errCode, errMsg);
-            }
-        }));
-    }
-
-    public void queryMoreProject(int page, Object req) {
-        if (fragment == null || api == null) {
-            return;
-        }
-
-        Map<String, Object> params = Obj2MapUtil.objectToMap(req);
-        Observable<WanResp<ProjectResp>> observable = api.queryProject(page, params);
-        setSubscribe(observable, new WanObserver<ProjectResp>(new WanObserver.OnCallback<ProjectResp>() {
-            @Override
-            public void onCall(ProjectResp response) {
-                fragment.queryMoreProjectSuccess(response);
-            }
-
-            @Override
-            public void onError(String errCode, String errMsg) {
-                fragment.queryMoreProjectFail(errCode, errMsg);
+                view.queryHotKeyFail(errCode, errMsg);
             }
         }));
     }

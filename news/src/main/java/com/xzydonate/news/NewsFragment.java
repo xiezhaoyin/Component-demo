@@ -1,33 +1,33 @@
 package com.xzydonate.news;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.ForegroundColorSpan;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.xzydonate.basesdk.activity.BaseFragment;
-import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseQuickAdapter;
-import com.xzydonate.basesdk.adapter.recyclerAdapter.BaseViewHolder;
+import com.xzydonate.basesdk.adapter.FragmentArgsAdapter;
 import com.xzydonate.basesdk.util.UrlRouter;
-import com.xzydonate.news.newsInfo.NewsInfoActivity;
+import com.xzydonate.news.newslist.NewsListFragment;
+import com.xzydonate.news.search.HotKeyResp;
+import com.xzydonate.news.search.SearchActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
-
-import static android.support.design.widget.TabLayout.OnTabSelectedListener;
-import static android.support.design.widget.TabLayout.Tab;
+import butterknife.OnClick;
 
 @Route(path = UrlRouter.NEWS_FRAG)
 public class NewsFragment extends BaseFragment<NewsPresenter> implements INewsView {
@@ -37,16 +37,30 @@ public class NewsFragment extends BaseFragment<NewsPresenter> implements INewsVi
     Banner mBanner;
     @BindView(R2.id.tabLayout)
     TabLayout mTabLayout;
-    @BindView(R2.id.recyclerView)
-    RecyclerView mRecyclerView;
+    @BindView(R2.id.viewPager)
+    ViewPager mViewPager;
 
+    @BindView(R2.id.iv_icon)
+    ImageButton ivIcon;
+    @BindView(R2.id.iv_todo)
+    ImageButton ivTodao;
+    @BindView(R2.id.iv_star)
+    ImageButton ivStar;
+    @BindView(R2.id.edt_search)
+    EditText edtSearch;
+
+    @BindView(R2.id.tv_article)
+    ImageView tvArticle;
+    @BindView(R2.id.tv_project)
+    ImageView tvProject;
+    @BindView(R2.id.tv_navigation)
+    ImageView tvNavigation;
+    @BindView(R2.id.tv_publicode)
+    ImageView tvPublicode;
 
     private NewsPresenter presenter = null;
-    private List<ProjectTreeResp> projectTreeRespList = null;
-    private int cid = 0;
-    private int page = 1;
-
-    private BaseQuickAdapter adapter = null;
+    private FragmentArgsAdapter adapter = null;
+    private Timer timer = null;
 
     @Override
     public int createView() {
@@ -55,21 +69,30 @@ public class NewsFragment extends BaseFragment<NewsPresenter> implements INewsVi
 
     @Override
     public void initView(Bundle savedInstanceState) {
-
         presenter = new NewsPresenter(this);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-
         mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-        mBanner.setBannerStyle(BannerConfig.RIGHT);
+        mBanner.setIndicatorGravity(BannerConfig.RIGHT);
+        mBanner.setBannerAnimation(Transformer.BackgroundToForeground);
         mBanner.setImageLoader(new GlideImageLoader());
         mBanner.isAutoPlay(true);
         mBanner.setDelayTime(3000);
 
+        List<String> titles = new ArrayList<>();
+        titles.add("最新博文");
+        titles.add("最新项目");
+        //初始化ViewPager的数据集
+        List<BaseFragment> fragments = new ArrayList<>();
+        fragments.add(newInstance(new NewsListFragment(), 0));
+        fragments.add(newInstance(new NewsListFragment(), 1));
+        //创建ViewPager的adapter
+        adapter = new FragmentArgsAdapter(getChildFragmentManager(), fragments, titles);
+        mViewPager.setAdapter(adapter);
+        mViewPager.setOffscreenPageLimit(1);
+        mTabLayout.setupWithViewPager(mViewPager);
+
         presenter.queryBanner();
-        presenter.queryProjectTree();
+        presenter.queryHotKey();
     }
 
     @Override
@@ -86,6 +109,7 @@ public class NewsFragment extends BaseFragment<NewsPresenter> implements INewsVi
     @Override
     public void destroyView() {
         mBanner.stopAutoPlay();
+        timer.cancel();
         presenter.destroyPresenter();
     }
 
@@ -109,107 +133,46 @@ public class NewsFragment extends BaseFragment<NewsPresenter> implements INewsVi
     }
 
     @Override
-    public void queryProjectTreeSuccess(List<ProjectTreeResp> data) {
-        if (data.size() <= 0)
+    public void queryHotKeySuccess(List<HotKeyResp> data) {
+        if (data == null || data.size() <= 0)
             return;
+        Random random = new Random();
 
-        projectTreeRespList = data;
-        int i = 0;
-        for (; i < data.size(); i++) {
-            Tab tab = mTabLayout.newTab();
-            tab.setText(data.get(i).getName());
-            mTabLayout.addTab(tab);
-        }
-
-        cid = projectTreeRespList.get(0).getId();
-        presenter.queryProject(new ProjectReq(cid));
-        mTabLayout.setOnTabSelectedListener(new OnTabSelectedListener() {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
-            public void onTabSelected(Tab tab) {
-                cid = projectTreeRespList.get(tab.getPosition()).getId();
-                presenter.queryProject(new ProjectReq(cid));
+            public void run() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        edtSearch.setHint(data.get(random.nextInt(data.size())).getName());
+                    }
+                });
             }
-
-            @Override
-            public void onTabUnselected(Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(Tab tab) {
-            }
-        });
-    }
-
-    @Override
-    public void queryProjectTreeFail(String errCode, String errMsg) {
+        }, 0, 5000);
 
     }
 
     @Override
-    public void queryProjectSuccess(ProjectResp data) {
-        page = 2;
-        if (data.getDatas().size() <= 0)
-            return;
+    public void queryHotKeyFail(String errCode, String errMsg) {
 
-        if (adapter == null) {
-            adapter = new BaseQuickAdapter<ProjectResp.Project, BaseViewHolder>(R.layout.news_recycler_item, data.getDatas()) {
-                @Override
-                protected void convert(BaseViewHolder helper, final ProjectResp.Project item) {
+    }
 
-                    String text = String.format("作者：%s   时间：%s", item.author, item.niceDate);
-                    int pos = text.indexOf("：");
-                    int pos2 = text.lastIndexOf("：");
-                    SpannableStringBuilder style = new SpannableStringBuilder(text);
-//                        style.setSpan(new AbsoluteSizeSpan(DensityUtil.dip2px(getContext(), 14)), 0, pos2, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-                    style.setSpan(new ForegroundColorSpan(Color.parseColor("#3e3e3e")), pos, pos2 - 2, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-                    style.setSpan(new ForegroundColorSpan(Color.parseColor("#3e3e3e")), pos2, text.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-
-                    helper.setText(R.id.title, item.title);
-                    helper.setText(R.id.content, style);
-                    helper.setOnClickListener(R.id.item, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            gotoActivity(NewsInfoActivity.class, item);
-                        }
-                    });
-                }
-            };
-            mRecyclerView.setAdapter(adapter);
-            adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-                @Override
-                public void onLoadMoreRequested() {
-                    presenter.queryMoreProject(page, new NewsReq(cid));
-                }
-            });
-            adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-        } else {
-            adapter.setNewData(data.getDatas());
+    @OnClick({R2.id.iv_icon, R2.id.iv_todo, R2.id.iv_star, R2.id.edt_search,
+            R2.id.tv_article, R2.id.tv_project, R2.id.tv_navigation, R2.id.tv_publicode})
+    public void onClick(View view) {
+        Log.d(TAG, "edt_search.id == " + R2.id.edt_search + "click.id == " + view.getId());
+        int i = view.getId();
+        if (i == R.id.iv_icon) {
+        } else if (i == R.id.iv_todo) {
+        } else if (i == R.id.iv_star) {
+        } else if (i == R.id.edt_search) {
+            Log.d(TAG, "edt_search");
+            gotoActivity(SearchActivity.class, null);
+        } else if (i == R.id.tv_article) {
+        } else if (i == R.id.tv_project) {
+        } else if (i == R.id.tv_navigation) {
+        } else if (i == R.id.tv_publicode) {
         }
     }
-
-    @Override
-    public void queryProjectFail(String errCode, String errMsg) {
-
-    }
-
-    @Override
-    public void queryMoreProjectSuccess(ProjectResp data) {
-        if (data.getDatas().size() > 0) {
-            if (adapter != null) {
-                adapter.addData(data.getDatas());
-                adapter.loadMoreComplete();
-                page++;
-            }
-        } else {
-            adapter.loadMoreEnd();
-        }
-    }
-
-    @Override
-    public void queryMoreProjectFail(String errCode, String errMsg) {
-        if (adapter != null) {
-            adapter.loadMoreFail();
-        }
-    }
-
 }

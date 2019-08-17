@@ -2,7 +2,11 @@
     package="com.xzydonate.news">
 
     <application>
-        <activity android:name=".newsInfo.NewsInfoActivity" />
+        <activity android:name=".search.SearchActivity" />
+        <activity android:name=".search.SearchInfoActivity" />
+        <activity android:name=".article.ArticleActivity" />
+        <activity android:name=".project.ProjectActivity" />
+        <activity android:name=".newsinfo.NewsInfoActivity" />
 
     </application>
 
