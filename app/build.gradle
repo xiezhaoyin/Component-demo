@@ -33,27 +33,28 @@ android {
             targetCompatibility 1.8
         }
     }
+    sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/values-zh'] } }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
 
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["design"]
+    implementation rootProject.ext.dependencies["recyclerview-v7"]
+    implementation rootProject.ext.dependencies["cardview-v7"]
 
-    api rootProject.ext.dependencies["appcompat-v7"]
-    api rootProject.ext.dependencies["design"]
-    api rootProject.ext.dependencies["recyclerview-v7"]
-    api rootProject.ext.dependencies["cardview-v7"]
-
-    api rootProject.ext.dependencies["butterknife"]
+    implementation rootProject.ext.dependencies["butterknife"]
     annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
         exclude module: 'support-annotations'
     }
 
-//    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+//   annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
 
-    api rootProject.ext.dependencies["arouter"]
+    implementation rootProject.ext.dependencies["arouter"]
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+
     implementation project(":baseSDK")
     implementation project(":news")
     implementation project(":picture")

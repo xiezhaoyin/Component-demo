@@ -44,6 +44,8 @@ dependencies {
     implementation rootProject.ext.dependencies["recyclerview-v7"]
     implementation rootProject.ext.dependencies["cardview-v7"]
     implementation rootProject.ext.dependencies["smartrefresh"]
+    implementation rootProject.ext.dependencies["flyco-tablayout"]
+    implementation rootProject.ext.dependencies["basequickadapter"]
     implementation rootProject.ext.dependencies["banner"]
     implementation rootProject.ext.dependencies["flowlayout"]
 

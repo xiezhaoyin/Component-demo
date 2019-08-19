@@ -4,16 +4,20 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.xzydonate.basesdk.activity.BaseFragment;
 import com.xzydonate.basesdk.adapter.FragmentArgsAdapter;
 import com.xzydonate.basesdk.util.UrlRouter;
 import com.xzydonate.news.newslist.NewsListFragment;
+import com.xzydonate.news.project.ProjectActivity;
 import com.xzydonate.news.search.HotKeyResp;
 import com.xzydonate.news.search.SearchActivity;
 import com.youth.banner.Banner;
@@ -171,6 +175,7 @@ public class NewsFragment extends BaseFragment<NewsPresenter> implements INewsVi
             gotoActivity(SearchActivity.class, null);
         } else if (i == R.id.tv_article) {
         } else if (i == R.id.tv_project) {
+            gotoActivity(ProjectActivity.class, null);
         } else if (i == R.id.tv_navigation) {
         } else if (i == R.id.tv_publicode) {
         }

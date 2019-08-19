@@ -19,10 +19,10 @@
     <color name="text_darkGray">#707070</color>
     <color name="text_black">#000000</color>
 
-    <color name="line">#e3e3e3</color>
+    <color name="line">#e1e1e1</color>
     <color name="darkLine">#bfbfbf</color>
 
-    <color name="white">#FFFFFF</color>
+    <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="hint">#bfbfbf</color>
 

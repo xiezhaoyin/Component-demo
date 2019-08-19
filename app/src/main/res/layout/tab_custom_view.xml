@@ -3,21 +3,20 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:padding="3dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="3dp">
 
     <ImageView
         android:id="@+id/tab_img"
         android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/selector_tablayout" />
+        android:layout_height="20dp" />
 
     <TextView
         android:id="@+id/tab_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:textSize="12sp"
+        android:text="首页"
         android:textColor="@drawable/tab_text_color"
-        android:text="首页"/>
+        android:textSize="12sp" />
 </LinearLayout>

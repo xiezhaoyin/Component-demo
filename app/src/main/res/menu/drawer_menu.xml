@@ -1,18 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-    <item android:id="@+id/menu_info_details"
-        android:title="版本信息"
-        android:checked="true"
-        android:icon="@android:drawable/ic_menu_info_details"/>
+        <item
+            android:id="@+id/menu_detail"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="版本信息" />
 
-    <item android:id="@+id/menu_share"
-        android:title="分享"
-        android:checked="true"
-        android:icon="@android:drawable/ic_menu_share"/>
+        <item
+            android:id="@+id/menu_question"
+            android:icon="@android:drawable/ic_menu_help"
+            android:title="常见问题" />
 
-    <item android:id="@+id/menu_agenda"
-        android:title="收藏"
-        android:checked="true"
-        android:icon="@android:drawable/ic_menu_save"/>
+        <item
+            android:id="@+id/menu_share"
+            android:icon="@android:drawable/ic_menu_share"
+            android:title="分享" />
     </group>
 </menu>

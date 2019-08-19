@@ -1,17 +1,17 @@
 package com.xzydonate.news.newslist;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.xzydonate.basesdk.activity.BaseFragment;
-import com.xzydonate.basesdk.widget.recyclerview.BaseQuickAdapter;
-import com.xzydonate.basesdk.widget.recyclerview.BaseViewHolder;
 import com.xzydonate.news.R;
 import com.xzydonate.news.R2;
 import com.xzydonate.news.article.ArticleResp;
@@ -19,6 +19,7 @@ import com.xzydonate.news.newsinfo.NewsInfoActivity;
 import com.xzydonate.news.project.ProjectResp;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class NewsListFragment extends BaseFragment<NewsListPresenter> implements INewsListView {
 
@@ -26,7 +27,8 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
     SwipeRefreshLayout mSwipeRFLayout;
     @BindView(R2.id.recyclerView)
     RecyclerView mRecyclerView;
-
+    @BindView(R2.id.fab)
+    FloatingActionButton fab;
 
     private NewsListPresenter presenter = null;
     private int page = 0;
@@ -44,6 +46,7 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setHasFixedSize(true);
 //        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
         mSwipeRFLayout.setProgressBackgroundColorSchemeResource(R.color.white);
@@ -108,22 +111,18 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
                     helper.setText(R.id.item_bottom, text);
                     helper.setText(R.id.item_star, item.zan + "");
                     Glide.with(NewsListFragment.this).load(item.envelopePic).into((ImageView) helper.getView(R.id.item_iv));
-                    helper.setOnClickListener(R.id.content, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            gotoActivity(NewsInfoActivity.class, item);
-                        }
-                    });
                 }
             };
-            mRecyclerView.setAdapter(adapter);
+
+            adapter.setOnItemClickListener((adapter, view, position) -> gotoActivity(NewsInfoActivity.class, data.getDatas().get(position)));
             adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
                 @Override
                 public void onLoadMoreRequested() {
                     presenter.queryMoreProject(page);
                 }
-            });
+            }, mRecyclerView);
             adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+            mRecyclerView.setAdapter(adapter);
         } else {
             adapter.setNewData(data.getDatas());
         }
@@ -173,22 +172,18 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
                     helper.setText(R.id.item_subTitle, item.desc);
                     helper.setText(R.id.item_bottom, text);
                     helper.setText(R.id.item_star, item.zan + "");
-                    helper.setOnClickListener(R.id.content, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            gotoActivity(NewsInfoActivity.class, item);
-                        }
-                    });
                 }
             };
-            mRecyclerView.setAdapter(adapter);
+
+            adapter.setOnItemClickListener((adapter, view, position) -> gotoActivity(NewsInfoActivity.class, data.getDatas().get(position)));
             adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
                 @Override
                 public void onLoadMoreRequested() {
                     presenter.queryMoreArticle(page);
                 }
-            });
+            }, mRecyclerView);
             adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+            mRecyclerView.setAdapter(adapter);
         } else {
             adapter.setNewData(data.getDatas());
         }
@@ -220,4 +215,9 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
         }
     }
 
+
+    @OnClick(R2.id.fab)
+    public void onViewClicked() {
+        mRecyclerView.smoothScrollToPosition(0);
+    }
 }

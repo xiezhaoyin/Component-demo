@@ -27,6 +27,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 
 //    resourcePrefix "picture_"
 
@@ -34,21 +38,18 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-//    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
     testImplementation 'junit:junit:4.12'
-//    androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
-//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
 
-    api rootProject.ext.dependencies["appcompat-v7"]
-    api rootProject.ext.dependencies["design"]
-    api rootProject.ext.dependencies["recyclerview-v7"]
-    api rootProject.ext.dependencies["cardview-v7"]
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["design"]
+    implementation rootProject.ext.dependencies["recyclerview-v7"]
+    implementation rootProject.ext.dependencies["cardview-v7"]
+    implementation rootProject.ext.dependencies["basequickadapter"]
 
-    api rootProject.ext.dependencies["butterknife"]
+    implementation rootProject.ext.dependencies["butterknife"]
     compileOnly rootProject.ext.dependencies["butterknife-compiler"]
 
-    api rootProject.ext.dependencies["arouter"]
+    implementation rootProject.ext.dependencies["arouter"]
     compileOnly rootProject.ext.dependencies["arouter-compiler"]
 
     implementation project(":baseSDK")

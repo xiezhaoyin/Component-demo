@@ -1,0 +1,8 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="CustomTabLayout" parent="Base.Widget.Design.TabLayout">
+        <item name="android:textSize">@dimen/big_size</item>
+    </style>
+
+</resources>

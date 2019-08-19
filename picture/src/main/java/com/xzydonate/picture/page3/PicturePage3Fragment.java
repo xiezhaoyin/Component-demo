@@ -11,9 +11,9 @@ import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.xzydonate.basesdk.activity.BaseFragment;
-import com.xzydonate.basesdk.widget.recyclerview.BaseQuickAdapter;
-import com.xzydonate.basesdk.widget.recyclerview.BaseViewHolder;
 import com.xzydonate.basesdk.util.UrlRouter;
 import com.xzydonate.picture.IPictureView;
 import com.xzydonate.picture.PictureResp;
@@ -92,23 +92,17 @@ public class PicturePage3Fragment extends BaseFragment implements IPictureView {
         Log.d("xzy", "loadSuccess ");
         mSwipeRFLayout.setRefreshing(false);
         if (data.size() > 0) {
-            if(adapter == null) {
+            if (adapter == null) {
                 adapter = new BaseQuickAdapter<PictureResp, BaseViewHolder>(R.layout.page1_recycler_item, data) {
 
                     @Override
                     protected void convert(BaseViewHolder helper, final PictureResp item) {
                         helper.setText(R.id.tv, item.getDesc());
                         Glide.with(getContext()).load(item.getUrl()).into((ImageView) helper.getView(R.id.iv));
-                        helper.setOnClickListener(R.id.iv, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-//                                ARouter.getInstance().build(UrlRouter.PICTURE_PAGE_INFO_ACT).navigation();
-                                gotoActivity(PictureInfoActivity.class,item);
-                            }
-                        });
                     }
                 };
                 adapter.openLoadAnimation();
+                adapter.setOnItemClickListener((adapter, view, position) -> gotoActivity(PictureInfoActivity.class, data.get(position)));
                 adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
                     @Override
                     public void onLoadMoreRequested() {
@@ -116,10 +110,10 @@ public class PicturePage3Fragment extends BaseFragment implements IPictureView {
                     }
                 });
                 mRecyclerView.setAdapter(adapter);
-            }else {
+            } else {
                 adapter.setNewData(data);
             }
-        }else {
+        } else {
 
         }
     }
@@ -132,11 +126,11 @@ public class PicturePage3Fragment extends BaseFragment implements IPictureView {
 
     @Override
     public void loadMoreSuccess(List<PictureResp> data) {
-        if(data.size()>0){
+        if (data.size() > 0) {
             page++;
             adapter.addData(data);
             adapter.loadMoreComplete();
-        }else {
+        } else {
             adapter.loadMoreEnd();
         }
 
@@ -144,6 +138,6 @@ public class PicturePage3Fragment extends BaseFragment implements IPictureView {
 
     @Override
     public void loadMoreFail(String errCode, String errMsg) {
-          adapter.loadMoreFail();
+        adapter.loadMoreFail();
     }
 }

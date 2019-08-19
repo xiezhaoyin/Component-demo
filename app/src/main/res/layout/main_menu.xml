@@ -11,10 +11,22 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        app:tabBackground="@drawable/tab_click_bg"
-        app:tabIndicatorHeight="0dp" />
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:elevation="@dimen/dp_6">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            app:tabBackground="@drawable/tab_click_bg"
+            app:tabIndicatorHeight="0dp" />
+    </android.support.design.widget.AppBarLayout>
 </LinearLayout>

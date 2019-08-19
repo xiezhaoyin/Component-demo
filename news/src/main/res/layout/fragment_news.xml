@@ -72,11 +72,11 @@
             android:background="@color/white"
             android:elevation="0dp"
             app:tabIndicatorColor="@color/colorPrimary"
-            app:tabIndicatorHeight="1dp"
-            app:tabMode="fixed"
-            app:tabPaddingStart="@dimen/dp_5"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="scrollable"
+            app:tabPaddingStart="@dimen/dp_15"
             app:tabSelectedTextColor="@color/colorPrimary"
-            app:tabTextAppearance="@android:style/TextAppearance.Holo.Medium"
+            app:tabTextAppearance="@style/CustomTabLayout"
             app:tabTextColor="@color/text_lightGray" />
 
     </android.support.design.widget.AppBarLayout>

@@ -12,9 +12,9 @@ import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.xzydonate.basesdk.activity.BaseFragment;
-import com.xzydonate.basesdk.widget.recyclerview.BaseQuickAdapter;
-import com.xzydonate.basesdk.widget.recyclerview.BaseViewHolder;
 import com.xzydonate.basesdk.util.DensityUtil;
 import com.xzydonate.basesdk.util.UrlRouter;
 import com.xzydonate.picture.IPictureView;
@@ -106,23 +106,16 @@ public class PicturePage2Fragment extends BaseFragment implements IPictureView {
                                 DensityUtil.dip2px(getContext(), 135 + (int) (Math.random() * 50)));
                         imageView.setLayoutParams(lp);
                         Glide.with(getContext()).load(item.getUrl()).into(imageView);
-                        helper.setOnClickListener(R.id.iv, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-//                                ARouter.getInstance().build(UrlRouter.PICTURE_PAGE_INFO_ACT).navigation();
-                                gotoActivity(PictureInfoActivity.class, item);
-                            }
-                        });
-
                     }
                 };
                 adapter.openLoadAnimation();
+                adapter.setOnItemClickListener((adapter, view, position) -> gotoActivity(PictureInfoActivity.class, data.get(position)));
                 adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
                     @Override
                     public void onLoadMoreRequested() {
                         presenter.loadMorePictures(8, page);
                     }
-                });
+                }, mRecyclerView);
                 mRecyclerView.setAdapter(adapter);
             } else {
                 adapter.setNewData(data);

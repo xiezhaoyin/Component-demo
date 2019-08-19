@@ -38,7 +38,7 @@
             android:layout_below="@id/item_title"
             android:layout_marginBottom="@dimen/dp_25"
             android:layout_toRightOf="@id/item_iv"
-            android:maxLength="100"
+            android:maxLength="80"
             android:textColor="@color/text_darkGray"
             android:textSize="@dimen/normal_size" />
 

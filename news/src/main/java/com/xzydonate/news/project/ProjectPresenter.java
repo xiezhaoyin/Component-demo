@@ -1,28 +1,26 @@
 package com.xzydonate.news.project;
 
-import com.trello.rxlifecycle2.components.support.RxFragment;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.xzydonate.basesdk.entity.WanResp;
-import com.xzydonate.basesdk.mvp.BaseFragPresenter;
+import com.xzydonate.basesdk.mvp.BaseActPresenter;
 import com.xzydonate.basesdk.mvp.base.WanObserver;
 import com.xzydonate.basesdk.network.netCall.RetrofitHelper;
 import com.xzydonate.basesdk.util.Obj2MapUtil;
-import com.xzydonate.news.BannerResp;
 import com.xzydonate.news.NewsApi;
-import com.xzydonate.news.NewsFragment;
 
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
 
-public class ProjectPresenter extends BaseFragPresenter {
+public class ProjectPresenter extends BaseActPresenter {
 
-    private IProjectView projectView = null;
+    private IProjectView view = null;
     private NewsApi api = null;
 
-    public ProjectPresenter(RxFragment fragment) {
-        super(fragment);
-//        projectView =  fragment;
+    public ProjectPresenter(RxAppCompatActivity activity) {
+        super(activity);
+        view = (IProjectView) activity;
         api = RetrofitHelper.RETROFIT_WAN.create(NewsApi.class);
     }
 
@@ -32,45 +30,45 @@ public class ProjectPresenter extends BaseFragPresenter {
     }
 
     public void queryProjectTree() {
-        if (projectView == null || api == null) {
+        if (view == null || api == null) {
             return;
         }
         Observable<WanResp<List<ProjectTreeResp>>> observable = api.queryProjectTree();
         setSubscribe(observable, new WanObserver<List<ProjectTreeResp>>(new WanObserver.OnCallback<List<ProjectTreeResp>>() {
             @Override
             public void onCall(List<ProjectTreeResp> response) {
-                projectView.queryProjectTreeSuccess(response);
+                view.queryProjectTreeSuccess(response);
             }
 
             @Override
             public void onError(String errCode, String errMsg) {
-                projectView.queryProjectTreeFail(errCode, errMsg);
+                view.queryProjectTreeFail(errCode, errMsg);
             }
         }));
     }
 
     public void queryProject(ProjectReq req) {
-        if (projectView == null || api == null) {
+        if (view == null || api == null) {
             return;
         }
 
         Map<String, Object> params = Obj2MapUtil.objectToMap(req);
-        Observable<WanResp<ProjectResp>> observable = api.queryProject(1, params);
+        Observable<WanResp<ProjectResp>> observable = api.queryProject(0, params);
         setSubscribe(observable, new WanObserver<ProjectResp>(new WanObserver.OnCallback<ProjectResp>() {
             @Override
             public void onCall(ProjectResp response) {
-                projectView.queryProjectSuccess(response);
+                view.queryProjectSuccess(response);
             }
 
             @Override
             public void onError(String errCode, String errMsg) {
-                projectView.queryProjectFail(errCode, errMsg);
+                view.queryProjectFail(errCode, errMsg);
             }
         }));
     }
 
-    public void queryMoreProject(int page, Object req) {
-        if (projectView == null || api == null) {
+    public void queryMoreProject(int page, ProjectReq req) {
+        if (view == null || api == null) {
             return;
         }
 
@@ -79,12 +77,12 @@ public class ProjectPresenter extends BaseFragPresenter {
         setSubscribe(observable, new WanObserver<ProjectResp>(new WanObserver.OnCallback<ProjectResp>() {
             @Override
             public void onCall(ProjectResp response) {
-                projectView.queryMoreProjectSuccess(response);
+                view.queryMoreProjectSuccess(response);
             }
 
             @Override
             public void onError(String errCode, String errMsg) {
-                projectView.queryMoreProjectFail(errCode, errMsg);
+                view.queryMoreProjectFail(errCode, errMsg);
             }
         }));
     }

@@ -9,10 +9,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
 import com.xzydonate.basesdk.activity.BaseActivity;
-import com.xzydonate.basesdk.widget.recyclerview.BaseQuickAdapter;
-import com.xzydonate.basesdk.widget.recyclerview.BaseViewHolder;
 import com.xzydonate.news.R;
 import com.xzydonate.news.R2;
 import com.xzydonate.news.article.ArticleResp;
@@ -50,23 +53,27 @@ public class SearchInfoActivity extends BaseActivity implements ISearchView {
     @Override
     public void initView(Bundle savedInstanceState) {
         presenter = new SearchPresenter(this);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setHasFixedSize(true);
+
         setRefresh();
     }
 
     private void setRefresh() {
+        // 设置 Header 为 贝塞尔雷达 样式
+        refreshLayout.setRefreshHeader(new BezierRadarHeader(this).setEnableHorizontalDrag(true));
+        // 设置 Footer 为 球脉冲 样式
+        refreshLayout.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale));
+
         refreshLayout.setOnRefreshListener(refreshLayout -> {
             page = 0;
             presenter.queryKeyArticle(kArticleReq);
-//            refreshLayout.finishRefresh(1000);
         });
 
         refreshLayout.setOnLoadMoreListener(refreshLayout -> {
-//            page++;
             presenter.queryMoreKeyArticle(page, kArticleReq);
-//            refreshLayout.finishLoadMore(1000);
         });
     }
 
@@ -85,7 +92,7 @@ public class SearchInfoActivity extends BaseActivity implements ISearchView {
         if (isSticky) {
             switch (eventTag) {
                 case "KArticleReq":
-                    KArticleReq kArticleReq = (KArticleReq) event;
+                    kArticleReq = (KArticleReq) event;
                     assert kArticleReq != null;
                     edtSearch.setText(kArticleReq.getK());
                     presenter.queryKeyArticle(kArticleReq);
@@ -122,14 +129,9 @@ public class SearchInfoActivity extends BaseActivity implements ISearchView {
                     helper.setText(R.id.item_subTitle, item.desc);
                     helper.setText(R.id.item_bottom, text);
                     helper.setText(R.id.item_star, item.zan + "");
-                    helper.setOnClickListener(R.id.content, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            gotoActivity(NewsInfoActivity.class, item);
-                        }
-                    });
                 }
             };
+            adapter.setOnItemClickListener((adapter, view, position) -> gotoActivity(NewsInfoActivity.class, data.getDatas().get(position)));
             adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
             recyclerView.setAdapter(adapter);
         } else {
@@ -165,8 +167,9 @@ public class SearchInfoActivity extends BaseActivity implements ISearchView {
         if (i == R.id.iv_back) {
             finish();
         } else if (i == R.id.fab) {
-
+            recyclerView.smoothScrollToPosition(0);
         } else if (i == R.id.edt_search) {
+            finish();
             gotoActivity(SearchActivity.class, null);
         }
     }
