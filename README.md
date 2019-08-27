@@ -1,4 +1,4 @@
-# Android 组件化
+# Samper 组件化app
 
 # 1. 技术栈：
    # RxJava 
