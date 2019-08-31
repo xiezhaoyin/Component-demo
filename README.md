@@ -6,20 +6,21 @@
      app壳 ： app
 
 # 2. 技术栈：
-   # RxJava 
-   # RxAndroid
-   # RxLifecycle
-   # RxCache
-   # Okhttp 
-   # Retrofit
-   # Eventbus
-   # Glide
-   # GreenDao
-   # Daggger
-   # ButterKnife
-   # MDesign
-   ...
+     RxJava 
+     RxAndroid
+     RxLifecycle
+     RxCache
+     Okhttp 
+     Retrofit
+     Eventbus
+     Glide
+     GreenDao
+     Daggger
+     ButterKnife
+     MDesign
+     ...
    
 # 3、api接口：
-   # wanandroid  api
-   # gank  api
+     wanandroid api
+     gank api
+     iqiy api
