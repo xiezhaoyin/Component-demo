@@ -6,6 +6,7 @@
      app壳 ： app
 
 # 2. 技术栈：
+     ARoute
      RxJava 
      RxAndroid
      RxLifecycle
