@@ -16,7 +16,7 @@
      Eventbus
      Glide
      GreenDao
-     Daggger
+     Dagger
      ButterKnife
      MDesign
      ...
