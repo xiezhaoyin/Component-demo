@@ -8,6 +8,7 @@ import com.xzydonate.basesdk.router.UrlRouter;
 
 @Route(path = UrlRouter.VIDEO_FRAG)
 public class VideoFragment extends BaseFragment {
+
     @Override
     public int createView() {
         return R.layout.video_activity_video_page_info;
