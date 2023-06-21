@@ -8,16 +8,14 @@ android {
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
 
         javaCompileOptions {
             annotationProcessorOptions {
-//                arguments = [ moduleName : project.getName() ]
-                includeCompileClasspath true
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
-
     }
 
     buildTypes {
@@ -27,18 +25,18 @@ android {
         }
     }
 
-//    resourcePrefix "baseSDK_"
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
-
-    implementation rootProject.ext.dependencies["appcompat-v7"]
-//    api rootProject.ext.dependencies["design"]
-//    api rootProject.ext.dependencies["recyclerview-v7"]
-//    api rootProject.ext.dependencies["cardview-v7"]
-//    api rootProject.ext.dependencies["autolayout"]
+    implementation rootProject.ext.dependencies["appcompat"]
+    implementation rootProject.ext.dependencies["coordinatorlayout"]
+    testImplementation rootProject.ext.dependencies["junit"]
 
     api rootProject.ext.dependencies["retrofit"]
     api rootProject.ext.dependencies["retrofit-converter-gson"]
@@ -53,23 +51,27 @@ dependencies {
 
     api rootProject.ext.dependencies["rxjava2"]
     api rootProject.ext.dependencies["rxandroid2"]
-    api rootProject.ext.dependencies["rxlifecycle2"]
-    api rootProject.ext.dependencies["rxlifecycle2-android"]
-    api rootProject.ext.dependencies["rxlifecycle2-components"]
+    api rootProject.ext.dependencies["rxlifecycle3"]
+    api rootProject.ext.dependencies["rxlifecycle3-android"]
+    api rootProject.ext.dependencies["rxlifecycle3-components"]
 
     api rootProject.ext.dependencies["eventbus"]
+    api rootProject.ext.dependencies["multidex"]
 
     api rootProject.ext.dependencies["butterknife"]
-    compileOnly rootProject.ext.dependencies["butterknife-compiler"]
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
 
-    api rootProject.ext.dependencies["dagger2"]
-    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
-    implementation rootProject.ext.dependencies["dagger2-android"]
-    implementation rootProject.ext.dependencies["dagger2-android-support"]
-    compileOnly rootProject.ext.dependencies["dagger2-android-processor"]
-//    api rootProject.ext.dependencies["arouter"]
-//    compileOnly rootProject.ext.dependencies["arouter-compiler"]
-//    compileOnly rootProject.ext.dependencies["canary-debug"]
-//    compileOnly rootProject.ext.dependencies["canary-release"]
+    api project(':arouter-api')
+    annotationProcessor project(':arouter-compiler')
+
+//    api rootProject.ext.dependencies["dagger2"]
+//    compileOnly rootProject.ext.dependencies["dagger2-compiler"]
+//    implementation rootProject.ext.dependencies["dagger2-android"]
+//    implementation rootProject.ext.dependencies["dagger2-android-support"]
+//    compileOnly rootProject.ext.dependencies["dagger2-android-processor"]
+
+
+//    compileOnly rootProject.ext.dependencies["leakcanary-debug"]
+//    compileOnly rootProject.ext.dependencies["leakcanary-release"]
 
 }

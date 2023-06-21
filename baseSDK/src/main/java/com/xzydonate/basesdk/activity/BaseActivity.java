@@ -1,20 +1,14 @@
 package com.xzydonate.basesdk.activity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.Window;
-import android.view.WindowManager;
 
+import androidx.annotation.Nullable;
 
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 import com.xzydonate.basesdk.R;
 import com.xzydonate.basesdk.mvp.BaseActPresenter;
 import com.xzydonate.basesdk.util.StatusBarUtil;
-
-
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -30,13 +24,11 @@ public abstract class BaseActivity<P extends BaseActPresenter> extends RxAppComp
     private Unbinder unbinder = null;
     private boolean isCreated = false;
 
-    @Inject
     protected P presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         setStatusBar();
-        StatusBarUtil.setLightMode(this);
         super.onCreate(savedInstanceState);
         TAG = getClass().getSimpleName();
 
@@ -59,6 +51,7 @@ public abstract class BaseActivity<P extends BaseActPresenter> extends RxAppComp
 
     protected void setStatusBar() {
         StatusBarUtil.setColor(this, getResources().getColor(R.color.colorStatusBar), 0);
+        StatusBarUtil.setLightMode(this);
     }
 
     @Override

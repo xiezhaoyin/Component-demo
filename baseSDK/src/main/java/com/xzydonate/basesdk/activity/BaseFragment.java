@@ -4,15 +4,15 @@ package com.xzydonate.basesdk.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.trello.rxlifecycle2.components.support.RxFragment;
+import androidx.annotation.Nullable;
+
+import com.trello.rxlifecycle3.components.support.RxFragment;
 import com.xzydonate.basesdk.mvp.BaseFragPresenter;
 
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -31,7 +31,6 @@ public abstract class BaseFragment<T extends BaseFragPresenter> extends RxFragme
     private boolean isCreated = false;
     protected int type = -1;
 
-    @Inject
     protected T presenter;
 
     // 接收参数

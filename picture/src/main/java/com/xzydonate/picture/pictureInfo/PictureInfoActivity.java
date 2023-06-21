@@ -1,16 +1,18 @@
 package com.xzydonate.picture.pictureInfo;
 
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.Toolbar;
+
 import android.util.Log;
 import android.widget.ImageView;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.xzydonate.basesdk.activity.BaseActivity;
-import com.xzydonate.basesdk.util.UrlRouter;
+import com.xzydonate.basesdk.router.UrlRouter;
 import com.xzydonate.picture.PictureResp;
 import com.xzydonate.picture.R;
 import com.xzydonate.picture.R2;
@@ -31,7 +33,7 @@ public class PictureInfoActivity extends BaseActivity {
 
     @Override
     public int createView() {
-        return R.layout.activity_picture_page_info;
+        return R.layout.picture_activity_picture_page_info;
     }
 
     @Override

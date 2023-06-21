@@ -1,19 +1,21 @@
 package com.xzydonate.news.project;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
@@ -51,7 +53,7 @@ public class ProjectActivity extends BaseActivity<ProjectPresenter> implements I
 
     @Override
     public int createView() {
-        return R.layout.activity_project;
+        return R.layout.news_activity_project;
     }
 
     @Override
@@ -143,7 +145,7 @@ public class ProjectActivity extends BaseActivity<ProjectPresenter> implements I
             return;
 
         if (adapter == null) {
-            adapter = new BaseQuickAdapter<ProjectResp.Project, BaseViewHolder>(R.layout.project_recycler_item, data.getDatas()) {
+            adapter = new BaseQuickAdapter<ProjectResp.Project, BaseViewHolder>(R.layout.news_project_recycler_item, data.getDatas()) {
                 @Override
                 protected void convert(BaseViewHolder helper, final ProjectResp.Project item) {
 

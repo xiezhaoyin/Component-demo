@@ -1,10 +1,7 @@
 package com.xzydonate.basesdk.mvp;
 
-import com.trello.rxlifecycle2.components.support.RxFragment;
 
-import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
+import com.trello.rxlifecycle3.components.support.RxFragment;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -25,21 +22,7 @@ public class BaseFragPresenter {
     }
 
     public void destroyPresenter() {
-
-    }
-
-    public <T> void setDelayConsumerSubscribe(Observable<T> observable, Consumer<T> consumer, Observer<T> observer, int timeout) {
-        if (fragment == null) {
-            return;
-        }
-
-        observable.delay(timeout, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.newThread()) //请求在工作线程
-                .compose(fragment.<T>bindToLifecycle())
-                .observeOn(Schedulers.io())
-                .doOnNext(consumer)
-                .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .subscribe(observer);
+        fragment = null;
     }
 
     public <T> void setConsumerSubscribe(Observable<T> observable, Consumer<T> consumer, Observer<T> observer) {
@@ -47,25 +30,14 @@ public class BaseFragPresenter {
             return;
         }
 
-        observable.subscribeOn(Schedulers.newThread()) //请求在工作线程
-                .observeOn(Schedulers.io())
+        observable.subscribeOn(Schedulers.io()) //请求在工作线程
                 .compose(fragment.<T>bindToLifecycle())
+                .observeOn(Schedulers.io())
                 .doOnNext(consumer)
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
                 .subscribe(observer);
     }
 
-    public <T> void setDelaySubscribe(Observable<T> observable, Observer<T> observer, int timeout) {
-        if (fragment == null) {
-            return;
-        }
-
-        observable.delay(timeout, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io()) //请求在IO线程
-                .compose(fragment.<T>bindToLifecycle())
-                .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .subscribe(observer);
-    }
 
     public <T> void setSubscribe(Observable<T> observable, Observer<T> observer) {
         if (fragment == null) {

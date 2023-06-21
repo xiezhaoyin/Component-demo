@@ -37,6 +37,7 @@ public class BasePresenter<M extends IModel, V extends IView> implements IPresen
 
     @Override
     public void createPresenter() {
+
     }
 
     @Override

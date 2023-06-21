@@ -1,10 +1,10 @@
 package com.xzydonate.news.search;
 
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 import com.xzydonate.basesdk.entity.WanResp;
 import com.xzydonate.basesdk.mvp.BaseActPresenter;
 import com.xzydonate.basesdk.mvp.base.WanObserver;
-import com.xzydonate.basesdk.network.netCall.RetrofitHelper;
+import com.xzydonate.basesdk.network.RetrofitHelper;
 import com.xzydonate.basesdk.util.Obj2MapUtil;
 import com.xzydonate.news.NewsApi;
 import com.xzydonate.news.article.ArticleResp;

@@ -1,16 +1,18 @@
 package com.xzydonate.news.newslist;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.widget.ImageView;
+
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.xzydonate.basesdk.activity.BaseFragment;
 import com.xzydonate.news.R;
 import com.xzydonate.news.R2;
@@ -36,7 +38,7 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
 
     @Override
     public int createView() {
-        return R.layout.fragment_news_list;
+        return R.layout.news_fragment_news_list;
     }
 
     @Override
@@ -100,7 +102,7 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
             return;
 
         if (adapter == null) {
-            adapter = new BaseQuickAdapter<ProjectResp.Project, BaseViewHolder>(R.layout.project_recycler_item, data.getDatas()) {
+            adapter = new BaseQuickAdapter<ProjectResp.Project, BaseViewHolder>(R.layout.news_project_recycler_item, data.getDatas()) {
                 @Override
                 protected void convert(BaseViewHolder helper, final ProjectResp.Project item) {
 
@@ -162,7 +164,7 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
             return;
 
         if (adapter == null) {
-            adapter = new BaseQuickAdapter<ArticleResp.Article, BaseViewHolder>(R.layout.article_recycler_item, data.getDatas()) {
+            adapter = new BaseQuickAdapter<ArticleResp.Article, BaseViewHolder>(R.layout.news_article_recycler_item, data.getDatas()) {
                 @Override
                 protected void convert(BaseViewHolder helper, final ArticleResp.Article item) {
 

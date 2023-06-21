@@ -20,10 +20,10 @@ android {
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
         testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
+
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [moduleName: project.getName()]
-                includeCompileClasspath true
+                arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
             }
         }
     }
@@ -64,29 +64,34 @@ android {
 }
 
 dependencies {
+    implementation rootProject.ext.dependencies["appcompat"]
+    testImplementation rootProject.ext.dependencies["junit"]
 
-    api rootProject.ext.dependencies["appcompat-v7"]
-    api rootProject.ext.dependencies["design"]
-    api rootProject.ext.dependencies["recyclerview-v7"]
-    api rootProject.ext.dependencies["cardview-v7"]
+    implementation rootProject.ext.dependencies["material"]
+    implementation rootProject.ext.dependencies["recyclerview"]
+    implementation rootProject.ext.dependencies["cardview"]
+
+
+    implementation rootProject.ext.dependencies["arouter"]
+    compileOnly rootProject.ext.dependencies["arouter-compiler"]
+
+    implementation project(':arouter-api')
+    annotationProcessor project(':arouter-compiler')
 
     if (isBuildModule.toBoolean()) {
         //view
         annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
             exclude module: 'support-annotations'
         }
-        //tools
-        annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
-        annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+
         //test
-        debugImplementation rootProject.ext.dependencies["canary-debug"]
-        releaseImplementation rootProject.ext.dependencies["canary-release"]
-        testImplementation rootProject.ext.dependencies["canary-release"]
+        debugImplementation rootProject.ext.dependencies["leakcanary-debug"]
+        releaseImplementation rootProject.ext.dependencies["leakcanary-release"]
+        testImplementation rootProject.ext.dependencies["leakcanary-release"]
     } else {
         compileOnly rootProject.ext.dependencies["butterknife-compiler"]
-        compileOnly rootProject.ext.dependencies["dagger2-compiler"]
-        compileOnly rootProject.ext.dependencies["arouter-compiler"]
-        compileOnly rootProject.ext.dependencies["canary-debug"]
-        compileOnly rootProject.ext.dependencies["canary-release"]
+
+        compileOnly rootProject.ext.dependencies["leakcanary-debug"]
+        compileOnly rootProject.ext.dependencies["leakcanary-release"]
     }
 }

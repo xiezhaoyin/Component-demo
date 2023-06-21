@@ -1,15 +1,16 @@
 package com.xzydonate.news.search;
 
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.widget.NestedScrollView;
 
 import com.xzydonate.basesdk.activity.BaseActivity;
 import com.xzydonate.news.R;
@@ -49,7 +50,7 @@ public class SearchActivity extends BaseActivity implements ISearchView {
 
     @Override
     public int createView() {
-        return R.layout.activity_search;
+        return R.layout.news_activity_search;
     }
 
     @Override
@@ -65,7 +66,7 @@ public class SearchActivity extends BaseActivity implements ISearchView {
 
     @Override
     public void destroyView() {
-       presenter.destroyPresenter();
+        presenter.destroyPresenter();
     }
 
     @Override
@@ -79,7 +80,7 @@ public class SearchActivity extends BaseActivity implements ISearchView {
         flowLayoutHotKey.setAdapter(new TagAdapter<HotKeyResp>(data) {
             @Override
             public View getView(FlowLayout parent, int position, HotKeyResp hotKey) {
-                TextView tv = (TextView) LayoutInflater.from(SearchActivity.this).inflate(R.layout.flowlayout_hotkey_item,
+                TextView tv = (TextView) LayoutInflater.from(SearchActivity.this).inflate(R.layout.news_flowlayout_hotkey_item,
                         parent, false);
                 assert hotKey != null;
                 String name = hotKey.getName();
@@ -126,8 +127,8 @@ public class SearchActivity extends BaseActivity implements ISearchView {
         if (i == R.id.iv_back) {
             finish();
         } else if (i == R.id.iv_search) {
-            assert !TextUtils.isEmpty(edtSearch.getText());
-            gotoActivity(SearchInfoActivity.class, new KArticleReq(edtSearch.getText().toString()));
+            if (!TextUtils.isEmpty(edtSearch.getText()))
+                gotoActivity(SearchInfoActivity.class, new KArticleReq(edtSearch.getText().toString()));
         } else if (i == R.id.iv_clear_history) {
 
         }

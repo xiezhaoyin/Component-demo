@@ -1,19 +1,21 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
+
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+
     defaultConfig {
         applicationId "com.xzydonate.samper"
-        minSdkVersion 17
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [moduleName: project.getName()]
-                includeCompileClasspath true
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
     }
@@ -27,36 +29,36 @@ android {
         }
     }
 
-    android {
-        compileOptions {
-            sourceCompatibility 1.8
-            targetCompatibility 1.8
-        }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
     }
+
     sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/values-zh'] } }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
+    implementation rootProject.ext.dependencies["appcompat"]
+    testImplementation rootProject.ext.dependencies["junit"]
 
-    implementation rootProject.ext.dependencies["appcompat-v7"]
-    implementation rootProject.ext.dependencies["design"]
-    implementation rootProject.ext.dependencies["recyclerview-v7"]
-    implementation rootProject.ext.dependencies["cardview-v7"]
+    implementation rootProject.ext.dependencies["material"]
+    implementation rootProject.ext.dependencies["recyclerview"]
+    implementation rootProject.ext.dependencies["cardview"]
 
-    implementation rootProject.ext.dependencies["butterknife"]
+//    implementation rootProject.ext.dependencies["butterknife"]
     annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
         exclude module: 'support-annotations'
     }
 
-//   annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+//    implementation project(':arouter-api')
+    annotationProcessor project(':arouter-compiler')
 
-    implementation rootProject.ext.dependencies["arouter"]
-    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
 
-    implementation project(":baseSDK")
     implementation project(":news")
     implementation project(":picture")
     implementation project(":video")
+
+    implementation project(":baseSDK")
+
 }

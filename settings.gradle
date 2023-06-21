@@ -1,1 +1,6 @@
-include ':app', ':picture', ':news', ':video', ':baseSDK'
+include ':app'
+include ':picture'
+include ':news'
+include ':video'
+include ':baseSDK'
+include ':arouter-annotation', ':arouter-api', ':arouter-compiler'

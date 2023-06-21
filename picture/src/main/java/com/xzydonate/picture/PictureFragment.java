@@ -2,17 +2,18 @@ package com.xzydonate.picture;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
+
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.google.android.material.tabs.TabLayout;
 import com.xzydonate.basesdk.activity.BaseFragment;
 import com.xzydonate.basesdk.adapter.FragmentAdapter;
-import com.xzydonate.basesdk.util.UrlRouter;
+import com.xzydonate.basesdk.router.UrlRouter;
 import com.xzydonate.picture.page1.PicturePage1Fragment;
-//import com.xzydonate.picture.page1.PicturePageFragment;
 import com.xzydonate.picture.page2.PicturePage2Fragment;
 import com.xzydonate.picture.page3.PicturePage3Fragment;
 
@@ -35,7 +36,7 @@ public class PictureFragment extends BaseFragment {
 
     @Override
     public int createView() {
-        return R.layout.fragment_picture;
+        return R.layout.picture_fragment_picture;
     }
 
     @Override

@@ -1,14 +1,15 @@
 package com.xzydonate.picture.page1;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
@@ -16,7 +17,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.xzydonate.basesdk.activity.BaseFragment;
 import com.xzydonate.basesdk.util.DensityUtil;
-import com.xzydonate.basesdk.util.UrlRouter;
+import com.xzydonate.basesdk.router.UrlRouter;
 import com.xzydonate.picture.IPictureView;
 import com.xzydonate.picture.PictureResp;
 import com.xzydonate.picture.R;
@@ -40,7 +41,7 @@ public class PicturePage1Fragment extends BaseFragment implements IPictureView {
 
     @Override
     public int createView() {
-        return R.layout.fragment_picture_page1;
+        return R.layout.picture_fragment_picture_page1;
     }
 
     @Override
@@ -97,7 +98,7 @@ public class PicturePage1Fragment extends BaseFragment implements IPictureView {
         mSwipeRFLayout.setRefreshing(false);
         if (data.size() > 0) {
             if(adapter == null) {
-                adapter = new BaseQuickAdapter<PictureResp, BaseViewHolder>(R.layout.page1_recycler_item, data) {
+                adapter = new BaseQuickAdapter<PictureResp, BaseViewHolder>(R.layout.picture_page1_recycler_item, data) {
 
                     @Override
                     protected void convert(BaseViewHolder helper, final PictureResp item) {

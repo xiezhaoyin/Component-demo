@@ -1,24 +1,45 @@
-apply plugin: 'com.android.library'
+if (isBuildModule.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
 apply plugin: 'com.jakewharton.butterknife'
+
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
 
     defaultConfig {
-        minSdkVersion 17
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-
+        if (isBuildModule.toBoolean()) {
+            applicationId "com.xzydonate.news"
+        }
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [moduleName: project.getName()]
-                includeCompileClasspath true
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
+    }
 
-//        resourcePrefix "news_"
+    resourcePrefix "news_"
+    lintOptions {
+        abortOnError false //不在error情况下中断
+        disable 'MissingTranslation' //无视字符串缺少本地化的情况
+        disable 'ExtraTranslation'//无视多做了本地化的字符串
+    }
+
+    sourceSets {
+        main {
+            if (isBuildModule.toBoolean()) {
+                manifest.srcFile 'src/main/mainfest/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
     }
 
     buildTypes {
@@ -27,9 +48,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
     }
 
 }
@@ -37,24 +59,25 @@ android {
 dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
+    implementation rootProject.ext.dependencies["appcompat"]
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    testImplementation rootProject.ext.dependencies["junit"]
 
-    implementation rootProject.ext.dependencies["appcompat-v7"]
-    implementation rootProject.ext.dependencies["design"]
-    implementation rootProject.ext.dependencies["recyclerview-v7"]
-    implementation rootProject.ext.dependencies["cardview-v7"]
+    implementation rootProject.ext.dependencies["material"]
+    implementation rootProject.ext.dependencies["recyclerview"]
+    implementation rootProject.ext.dependencies["cardview"]
+    implementation rootProject.ext.dependencies["refreshlayout"]
+    implementation rootProject.ext.dependencies["basequickadapter"]
     implementation rootProject.ext.dependencies["smartrefresh"]
     implementation rootProject.ext.dependencies["flyco-tablayout"]
-    implementation rootProject.ext.dependencies["basequickadapter"]
     implementation rootProject.ext.dependencies["banner"]
     implementation rootProject.ext.dependencies["flowlayout"]
 
-    implementation rootProject.ext.dependencies["butterknife"]
-    compileOnly rootProject.ext.dependencies["butterknife-compiler"]
+//    implementation rootProject.ext.dependencies["butterknife"]
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
 
-    implementation rootProject.ext.dependencies["arouter"]
-    compileOnly rootProject.ext.dependencies["arouter-compiler"]
+//    implementation project(':arouter-api')
+    annotationProcessor project(':arouter-compiler')
 
     implementation project(":baseSDK")
-//    implementation project(":baseRES")
 }

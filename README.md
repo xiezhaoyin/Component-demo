@@ -1,7 +1,7 @@
 # Component-demo 组件化app
 
 # 1. 架构组成：
-     lib库 ：baselib 
+     lib库 ：baseSDK
      module组件 ：news组件（wanandroid api） picutrue组件（gank api） video组件（iqiy api）
      app壳 ： app
 

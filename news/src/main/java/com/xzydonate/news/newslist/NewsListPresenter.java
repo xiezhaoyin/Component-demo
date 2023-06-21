@@ -1,18 +1,13 @@
 package com.xzydonate.news.newslist;
 
-import com.trello.rxlifecycle2.components.support.RxFragment;
+import com.trello.rxlifecycle3.components.support.RxFragment;
 import com.xzydonate.basesdk.entity.WanResp;
 import com.xzydonate.basesdk.mvp.BaseFragPresenter;
 import com.xzydonate.basesdk.mvp.base.WanObserver;
-import com.xzydonate.basesdk.network.netCall.RetrofitHelper;
-import com.xzydonate.basesdk.util.Obj2MapUtil;
+import com.xzydonate.basesdk.network.RetrofitHelper;
 import com.xzydonate.news.NewsApi;
-import com.xzydonate.news.article.ArticleReq;
 import com.xzydonate.news.article.ArticleResp;
-import com.xzydonate.news.project.ProjectReq;
 import com.xzydonate.news.project.ProjectResp;
-
-import java.util.Map;
 
 import io.reactivex.Observable;
 

@@ -1,11 +1,10 @@
 package com.xzydonate.picture.page2;
 
-
-import com.trello.rxlifecycle2.components.support.RxFragment;
+import com.trello.rxlifecycle3.components.support.RxFragment;
 import com.xzydonate.basesdk.entity.BaseResp;
 import com.xzydonate.basesdk.mvp.BaseFragPresenter;
 import com.xzydonate.basesdk.mvp.base.BaseObserver;
-import com.xzydonate.basesdk.network.netCall.RetrofitHelper;
+import com.xzydonate.basesdk.network.RetrofitHelper;
 
 import com.xzydonate.picture.PictureApi;
 import com.xzydonate.picture.PictureResp;

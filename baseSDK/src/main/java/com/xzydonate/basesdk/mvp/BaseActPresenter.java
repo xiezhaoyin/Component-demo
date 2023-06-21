@@ -1,8 +1,6 @@
 package com.xzydonate.basesdk.mvp;
 
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-
-import java.util.concurrent.TimeUnit;
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -14,7 +12,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by dell on 2018/4/24.
  */
 
-public class BaseActPresenter{
+public class BaseActPresenter {
 
     private RxAppCompatActivity activity;
 
@@ -23,44 +21,19 @@ public class BaseActPresenter{
     }
 
     public void destroyPresenter() {
-
+        activity = null;
     }
 
-    public <T> void setDelayConsumerSubscribe(Observable<T> observable, Consumer<T> consumer, Observer<T> observer, int timeout) {
-        if (activity == null) {
-            return;
-        }
-
-        observable.delay(timeout, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.newThread()) //请求在工作线程
-                .compose(activity.<T>bindToLifecycle())
-                .observeOn(Schedulers.io())
-                .doOnNext(consumer)
-                .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .subscribe(observer);
-    }
 
     public <T> void setConsumerSubscribe(Observable<T> observable, Consumer<T> consumer, Observer<T> observer) {
         if (activity == null) {
             return;
         }
 
-        observable.subscribeOn(Schedulers.newThread()) //请求在工作线程
+        observable.subscribeOn(Schedulers.io()) //请求在工作线程
+                .compose(activity.<T>bindToLifecycle())
                 .observeOn(Schedulers.io())
-                .compose(activity.<T>bindToLifecycle())
                 .doOnNext(consumer)
-                .observeOn(AndroidSchedulers.mainThread())//回调到主线程
-                .subscribe(observer);
-    }
-
-    public <T> void setDelaySubscribe(Observable<T> observable, Observer<T> observer, int timeout) {
-        if (activity == null) {
-            return;
-        }
-
-        observable.delay(timeout, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io()) //请求在IO线程
-                .compose(activity.<T>bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())//回调到主线程
                 .subscribe(observer);
     }

@@ -1,21 +1,19 @@
 package com.xzydonate.news;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
+
+import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.google.android.material.tabs.TabLayout;
 import com.xzydonate.basesdk.activity.BaseFragment;
 import com.xzydonate.basesdk.adapter.FragmentArgsAdapter;
-import com.xzydonate.basesdk.util.UrlRouter;
+import com.xzydonate.basesdk.router.UrlRouter;
 import com.xzydonate.news.newslist.NewsListFragment;
 import com.xzydonate.news.project.ProjectActivity;
 import com.xzydonate.news.search.HotKeyResp;
@@ -35,7 +33,6 @@ import butterknife.OnClick;
 
 @Route(path = UrlRouter.NEWS_FRAG)
 public class NewsFragment extends BaseFragment<NewsPresenter> implements INewsView {
-
 
     @BindView(R2.id.banner)
     Banner mBanner;
@@ -68,7 +65,7 @@ public class NewsFragment extends BaseFragment<NewsPresenter> implements INewsVi
 
     @Override
     public int createView() {
-        return R.layout.fragment_news;
+        return R.layout.news_fragment_news;
     }
 
     @Override
@@ -165,7 +162,7 @@ public class NewsFragment extends BaseFragment<NewsPresenter> implements INewsVi
     @OnClick({R2.id.iv_icon, R2.id.iv_todo, R2.id.iv_star, R2.id.edt_search,
             R2.id.tv_article, R2.id.tv_project, R2.id.tv_navigation, R2.id.tv_publicode})
     public void onClick(View view) {
-        Log.d(TAG, "edt_search.id == " + R2.id.edt_search + "click.id == " + view.getId());
+        Log.d(TAG, "click.id == " + view.getId());
         int i = view.getId();
         if (i == R.id.iv_icon) {
         } else if (i == R.id.iv_todo) {

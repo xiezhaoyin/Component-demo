@@ -1,10 +1,11 @@
 package com.xzydonate.news.newsinfo;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import androidx.appcompat.widget.Toolbar;
 
 import com.xzydonate.basesdk.activity.BaseActivity;
 import com.xzydonate.news.R;
@@ -24,12 +25,12 @@ public class NewsInfoActivity extends BaseActivity {
 
     @Override
     public int createView() {
-        return R.layout.activity_news_info;
+        return R.layout.news_activity_news_info;
     }
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        mToolbar.setNavigationIcon(R.drawable.back);
+        mToolbar.setNavigationIcon(R.drawable.news_back);
         mToolbar.setNavigationOnClickListener(v -> finish());
     }
 

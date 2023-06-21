@@ -1,11 +1,7 @@
 package com.xzydonate.samper;
 
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,9 +9,16 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.xzydonate.basesdk.activity.BaseActivity;
-import com.xzydonate.basesdk.util.UrlRouter;
+import com.xzydonate.basesdk.router.ARouterFragManager;
+import com.xzydonate.basesdk.router.UrlRouter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +71,7 @@ public class MainActivity extends BaseActivity {
     private void initBottomNavigationView() {
         List<String> titles = new ArrayList<>();
         titles.add("文章");
-        titles.add("美图");
+        titles.add("图片");
         titles.add("短视频");
         fragmentManager = getSupportFragmentManager();
         aRouterFragManager = ARouterFragManager.getInstance();

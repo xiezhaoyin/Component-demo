@@ -1,16 +1,18 @@
 package com.xzydonate.news.search;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
@@ -47,7 +49,7 @@ public class SearchInfoActivity extends BaseActivity implements ISearchView {
 
     @Override
     public int createView() {
-        return R.layout.activity_searchinfo;
+        return R.layout.news_activity_searchinfo;
     }
 
     @Override
@@ -119,7 +121,7 @@ public class SearchInfoActivity extends BaseActivity implements ISearchView {
             return;
 
         if (adapter == null) {
-            adapter = new BaseQuickAdapter<ArticleResp.Article, BaseViewHolder>(R.layout.article_recycler_item, data.getDatas()) {
+            adapter = new BaseQuickAdapter<ArticleResp.Article, BaseViewHolder>(R.layout.news_article_recycler_item, data.getDatas()) {
                 @Override
                 protected void convert(BaseViewHolder helper, final ArticleResp.Article item) {
 
