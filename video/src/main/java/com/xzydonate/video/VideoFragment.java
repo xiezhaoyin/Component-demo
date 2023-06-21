@@ -33,4 +33,5 @@ public class VideoFragment extends BaseFragment {
     public void onReceive(boolean isSticky, String eventTag, Object event) {
 
     }
+
 }
